@@ -16,4 +16,7 @@ Route::get('/help', [UserHelp::class, 'index'])->name('help');
 Route::get('/quis', [UserQuis::class, 'index'])->name('quis');
 Route::get('/about-us', [UserAbout::class, 'index'])->name('about-us');
 
-Route::get('/admin', [AdminController::class, 'index']);
+
+Route::prefix('admin')->group(function(){
+    Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
+});
