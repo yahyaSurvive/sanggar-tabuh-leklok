@@ -1,6 +1,11 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\QuizController;
+use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\User\HomeController as UserHome;
 use App\Http\Controllers\User\ActivityController as UserActivity;
 use App\Http\Controllers\User\ContactController as UserContact;
@@ -16,7 +21,12 @@ Route::get('/help', [UserHelp::class, 'index'])->name('help');
 Route::get('/quis', [UserQuis::class, 'index'])->name('quis');
 Route::get('/about-us', [UserAbout::class, 'index'])->name('about-us');
 
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::get('/register', [RegisterController::class, 'index'])->name('register');
+Route::get('/forgot-password', [ForgotPasswordController::class, 'index'])->name('forgot_password');
 
 Route::prefix('admin')->group(function(){
-    Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/quiz', [QuizController::class, 'index'])->name('admin.quiz');
+    Route::get('/profile', [ProfileController::class, 'index'])->name('admin.profile');
 });

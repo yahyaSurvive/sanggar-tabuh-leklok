@@ -7,7 +7,7 @@
         <!-- Sidebar header -->
         <div class="sidebar-section">
             <div class="sidebar-section-body d-flex justify-content-center">
-                <h5 class="sidebar-resize-hide flex-grow-1 my-auto">Navigation</h5>
+                <h5 class="sidebar-resize-hide flex-grow-1 my-auto">Menu</h5>
 
                 <div>
                     <button type="button"
@@ -34,31 +34,26 @@
                     <div class="text-uppercase fs-sm lh-sm sidebar-resize-hide opacity-50">Main</div>
                     <i class="ph-dots-three sidebar-resize-show"></i>
                 </li> --}}
+
                 <li class="nav-item">
-                    <a href="index.html" class="nav-link active">
+                    <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                         <i class="ph-house"></i>
-                        <span>
-                            Dashboard
-                            <span class="d-block fw-normal opacity-50">No pending orders</span>
-                        </span>
+                        <span>Dashboard</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="index.html" class="nav-link">
+                    <a href="{{ route('admin.quiz') }}" class="nav-link {{ request()->routeIs('admin.quiz') ? 'active' : '' }}">
                         <i class="ph-list-checks"></i>
-                        <span>
-                            Quiz
-                        </span>
+                        <span>Quiz</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="index.html" class="nav-link">
+                    <a href="{{ route('admin.profile') }}" class="nav-link {{ request()->routeIs('admin.profile') ? 'active' : '' }}">
                         <i class="ph-user"></i>
-                        <span>
-                            Profile
-                        </span>
+                        <span>Profile</span>
                     </a>
                 </li>
+
 
                 {{-- <li class="nav-item nav-item-submenu">
                     <a href="#" class="nav-link">

@@ -21,11 +21,11 @@
                 <a href="#" class="navbar-nav-link align-items-center rounded-pill p-1"
                     data-bs-toggle="dropdown">
                     <div class="status-indicator-container">
-                        <img src="../../../assets/images/demo/users/face11.jpg" class="w-32px h-32px rounded-pill"
-                            alt="">
+                        <img src="{{ asset('assets/admin/assets/img/user-icon.svg') }}" class="w-32px h-32px rounded-pill"
+                            alt="user icon">
                         <span class="status-indicator bg-success"></span>
                     </div>
-                    <span class="d-none d-lg-inline-block mx-lg-2">Victoria</span>
+                    <span class="d-none d-lg-inline-block mx-lg-2">User</span>
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-end">

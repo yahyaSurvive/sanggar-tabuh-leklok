@@ -12,6 +12,9 @@
     <link href="{{ asset('assets/admin/assets/icons/phosphor/styles.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('assets/admin/assets/css/ltr/all.min.css') }}" id="stylesheet" rel="stylesheet"
         type="text/css">
+
+
+    @stack('style_admin')
     <!-- /global stylesheets -->
 
     <!-- Core JS files -->
@@ -19,6 +22,9 @@
     <!-- /core JS files -->
 
     <script src="{{ asset('assets/admin/assets/js/app.js') }}"></script>
+
+    @stack('script_admin')
+
 
 </head>
 
