@@ -22,6 +22,7 @@
     <!-- /core JS files -->
 
     <script src="{{ asset('assets/admin/assets/js/app.js') }}"></script>
+    <script src="{{ asset('assets/admin/assets/js/jquery/jquery.min.js') }}"></script>
 
     @stack('script_admin')
 

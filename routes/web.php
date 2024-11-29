@@ -27,6 +27,10 @@ Route::get('/forgot-password', [ForgotPasswordController::class, 'index'])->name
 
 Route::prefix('admin')->group(function(){
     Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
-    Route::get('/quiz', [QuizController::class, 'index'])->name('admin.quiz');
+
+    Route::prefix('/quiz')->group(function(){
+        Route::get('/', [QuizController::class, 'index'])->name('admin.quiz');
+        Route::post('/store', [QuizController::class, 'store'])->name('admin.quiz.store');
+    });
     Route::get('/profile', [ProfileController::class, 'index'])->name('admin.profile');
 });
