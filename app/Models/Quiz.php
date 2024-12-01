@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Quiz extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'id_user',
         'question',
@@ -18,5 +21,6 @@ class Quiz extends Model
     ];
 
     protected $table = 'quiz';
+    protected $primaryKey = 'id_quiz';
 
 }

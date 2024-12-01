@@ -31,6 +31,9 @@ Route::prefix('admin')->group(function(){
     Route::prefix('/quiz')->group(function(){
         Route::get('/', [QuizController::class, 'index'])->name('admin.quiz');
         Route::post('/store', [QuizController::class, 'store'])->name('admin.quiz.store');
+        Route::post('/update/{id}', [QuizController::class, 'update'])->name('admin.quiz.update');
+        Route::get('/show/{id}', [QuizController::class, 'detail'])->name('admin.quiz.detail');
+        Route::delete('/delete/{id}', [QuizController::class, 'destroy'])->name('admin.quiz.destroy');
     });
     Route::get('/profile', [ProfileController::class, 'index'])->name('admin.profile');
 });
