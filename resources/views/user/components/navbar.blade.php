@@ -20,39 +20,58 @@
                          <div class="dropdown-menu bg-light">
                              <a href="{{ route('about-us.history') }}"
                                  class="dropdown-item {{ Route::currentRouteName() === 'about-us.history' ? 'active' : '' }}">Sejarah
-                                 Sanggar</a>
+                             </a>
                              <a href="{{ route('about-us.meaning') }}"
                                  class="dropdown-item {{ Route::currentRouteName() === 'about-us.meaning' ? 'active' : '' }}">Makna
-                                 Sanggar</a>
+                             </a>
                          </div>
                      </div>
                      <div class="nav-item dropdown">
                          <a href="#"
-                             class="nav-link dropdown-toggle {{ Route::currentRouteName() === 'about-us.history' || Route::currentRouteName() === 'about-us.meaning' ? 'active' : '' }}"
+                             class="nav-link dropdown-toggle {{ Route::currentRouteName() === 'activity.gallery' || Route::currentRouteName() === 'activity.course' ? 'active' : '' }}"
                              data-bs-toggle="dropdown">Kegiatan</a>
                          <div class="dropdown-menu bg-light">
-                             <a href="{{ route('about-us.history') }}"
-                                 class="dropdown-item {{ Route::currentRouteName() === 'about-us.history' ? 'active' : '' }}">Sejarah
+                             <a href="{{ route('activity.gallery') }}"
+                                 class="dropdown-item {{ Route::currentRouteName() === 'activity.gallery' ? 'active' : '' }}">
                                  Galeri</a>
-                             <a href="{{ route('about-us.meaning') }}"
-                                 class="dropdown-item {{ Route::currentRouteName() === 'about-us.meaning' ? 'active' : '' }}">Makna
+                             <a href="{{ route('activity.course') }}"
+                                 class="dropdown-item {{ Route::currentRouteName() === 'activity.course' ? 'active' : '' }}">
                                  Pilihan Les</a>
                          </div>
                      </div>
-                     <a href="{{ route('activity') }}"
-                         class="nav-item nav-link {{ Route::currentRouteName() === 'activity' ? 'active' : '' }}">Kegiatan</a>
                      <a href="{{ route('contact-person') }}"
                          class="nav-item nav-link {{ Route::currentRouteName() === 'contact-person' ? 'active' : '' }}">Kontak</a>
                      <a href="{{ route('quis') }}"
-                         class="nav-item nav-link {{ Route::currentRouteName() === 'contact-person' ? 'active' : '' }}">Quis</a>
+                         class="nav-item nav-link {{ Route::currentRouteName() === 'quis' || Route::currentRouteName() === 'quis.start' ? 'active' : '' }}">Quis</a>
                      <a href="{{ route('help') }}"
                          class="nav-item nav-link {{ Route::currentRouteName() === 'help' ? 'active' : '' }}">Bantuan</a>
                  </div>
-                 <a href="#"
-                     class="btn-search btn btn-primary btn-md-square me-4 rounded-circle d-none d-lg-inline-flex"><i
-                         class="fas fa-sign-in-alt"></i></a>
-                 {{-- <a href="" class="btn btn-primary py-2 px-4 d-none d-xl-inline-block rounded-pill">Book
-                     Now</a> --}}
+
+                 @php
+                     $login = true;
+                 @endphp
+
+                 @if ($login)
+                     <div class="nav-item dropdown">
+                         <a href="#"
+                             class="btn-search btn btn-primary btn-md-square me-1 rounded-circle d-none d-lg-inline-flex"
+                             data-bs-toggle="dropdown"><i class="fas fa-user"></i></a> username
+                         <div class="dropdown-menu bg-light">
+                             <a href="{{ route('user.profile') }}"
+                                 class="dropdown-item {{ Route::currentRouteName() === 'user.profile' ? 'active' : '' }}">
+                                 Profil</a>
+                             <a href="{{ route('user.change-password') }}"
+                                 class="dropdown-item {{ Route::currentRouteName() === 'user.change-password' ? 'active' : '' }}">
+                                 Ganti Password</a>
+                         </div>
+                     </div>
+                 @else
+                     <a href="#"
+                         class="btn-search btn btn-primary btn-md-square me-4 rounded-circle d-none d-lg-inline-flex"><i
+                             class="fas fa-sign-in-alt"></i></a>
+                 @endif
+
+
              </div>
          </nav>
      </div>

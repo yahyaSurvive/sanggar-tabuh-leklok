@@ -3,17 +3,27 @@
 @section('title', 'Tentang Kami - Sejarah Sanggar')
 
 @section('content')
+    <!-- Hero Start -->
+    <div class="container-fluid bg-light py-6 my-6 mt-0">
+        <div class="container text-center animated bounceInDown">
+            <h1 class="display-1 mb-4">Sejarah</h1>
+            <ol class="breadcrumb justify-content-center mb-0 animated bounceInDown">
+                <li class="breadcrumb-item"><a href="{{ route('/') }}">Beranda</a></li>
+                <li class="breadcrumb-item"><a href="#">Tentang Kami</a></li>
+                <li class="breadcrumb-item text-dark" aria-current="page">Sejarah</li>
+            </ol>
+        </div>
+    </div>
+    <!-- Hero End -->
+
     <!-- About Satrt -->
-    <div class="container-fluid py-6">
+    <div class="container-fluid py-4">
         <div class="container">
             <div class="row g-5 align-items-center">
                 <div class="col-lg-5 wow bounceInUp" data-wow-delay="0.1s">
                     <img src="{{ asset('assets/user/img/sanggar.jpg') }}" class="img-fluid rounded" alt="Gambar Sanggar">
                 </div>
                 <div class="col-lg-7 wow bounceInUp" data-wow-delay="0.3s">
-                    <small
-                        class="d-inline-block fw-bold text-dark text-uppercase bg-light border border-primary rounded-pill px-4 py-1 mb-3">Tentang
-                        Kami</small>
                     <h1 class="display-5 mb-4">Sejarah Sanggar Leklok</h1>
                     <div style="text-align: justify">
                         <p class="mb-3"><span class="me-5"></span>Sanggar seni leklok, adalah
