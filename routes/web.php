@@ -1,6 +1,5 @@
 <?php
 
-<<<<<<< HEAD
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\QuizController;
 use App\Http\Controllers\Admin\ProfileController;
@@ -8,9 +7,6 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\User\HomeController as UserHome;
-=======
-use App\Http\Controllers\Admin\AdminController;
->>>>>>> ef11cb4564c36dae0f714bd9697e821019bec83b
 use App\Http\Controllers\User\ActivityController as UserActivity;
 use App\Http\Controllers\User\ContactController as UserContact;
 use App\Http\Controllers\User\HelpController as UserHelp;
@@ -24,7 +20,6 @@ Route::get('/activity', [UserActivity::class, 'index'])->name('activity');
 Route::get('/contact-person', [UserContact::class, 'index'])->name('contact-person');
 Route::get('/help', [UserHelp::class, 'index'])->name('help');
 Route::get('/quis', [UserQuis::class, 'index'])->name('quis');
-<<<<<<< HEAD
 Route::get('/about-us', [UserAbout::class, 'index'])->name('about-us');
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -42,13 +37,4 @@ Route::prefix('admin')->group(function(){
         Route::delete('/delete/{id}', [QuizController::class, 'destroy'])->name('admin.quiz.destroy');
     });
     Route::get('/profile', [ProfileController::class, 'index'])->name('admin.profile');
-=======
-Route::prefix('/about-us')->group(function () {
-    Route::get('/history', [UserAbout::class, 'history'])->name('about-us.history');
-    Route::get('/meaning', [UserAbout::class, 'meaning'])->name('about-us.meaning');
-});
-
-Route::prefix('admin')->group(function () {
-    Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
->>>>>>> ef11cb4564c36dae0f714bd9697e821019bec83b
 });
