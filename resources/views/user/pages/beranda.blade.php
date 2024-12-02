@@ -1,6 +1,6 @@
 @extends('user.layouts.main')
 
-@section('name', 'Beranda')
+@section('title', 'Beranda')
 
 @section('content')
     <!-- Hero Start -->

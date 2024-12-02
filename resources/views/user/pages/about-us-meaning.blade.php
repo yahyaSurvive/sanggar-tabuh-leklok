@@ -3,14 +3,24 @@
 @section('title', 'Tentang Kami - Makna Sanggar')
 
 @section('content')
+    <!-- Hero Start -->
+    <div class="container-fluid bg-light py-6 my-6 mt-0">
+        <div class="container text-center animated bounceInDown">
+            <h1 class="display-1 mb-4">Makna</h1>
+            <ol class="breadcrumb justify-content-center mb-0 animated bounceInDown">
+                <li class="breadcrumb-item"><a href="{{ route('/') }}">Beranda</a></li>
+                <li class="breadcrumb-item"><a href="#">Tentang Kami</a></li>
+                <li class="breadcrumb-item text-dark" aria-current="page">Makna</li>
+            </ol>
+        </div>
+    </div>
+    <!-- Hero End -->
+
     <!-- About Satrt -->
-    <div class="container-fluid py-6">
+    <div class="container-fluid py-4">
         <div class="container">
             <div class="row g-5 align-items-center">
                 <div class="col-lg-7 wow bounceInUp" data-wow-delay="0.3s">
-                    <small
-                        class="d-inline-block fw-bold text-dark text-uppercase bg-light border border-primary rounded-pill px-4 py-1 mb-3">Tentang
-                        Kami</small>
                     <h1 class="display-5 mb-4">Arti Logo</h1>
                     <div style="text-align: justify">
                         <p class="mb-3"><span class="me-5"></span>Sanggar Leklok memiliki Logo TERATAI dengan 7 (Tujuh)
