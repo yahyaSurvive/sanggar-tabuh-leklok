@@ -21,6 +21,7 @@ Route::get('/', [UserBeranda::class, 'index'])->name('/');
 Route::get('/contact-person', function () {
     return view('user.pages.contact-person');
 })->name('contact-person');
+
 Route::get('/help', function () {
     return view('user.pages.help');
 })->name('help');
@@ -29,6 +30,7 @@ Route::prefix('/quis')->group(function () {
     Route::get('/', [UserQuis::class, 'index'])->name('quis');
     Route::get('/start', [UserQuis::class, 'quis_start'])->name('quis.start');
     Route::post('/start', [UserQuis::class, 'quis_submit'])->name('quis.submit');
+    Route::get('/review-answers/{id}', [UserQuis::class, 'review_answers'])->name('quiz.review-answers');
 });
 
 Route::prefix('/about-us')->group(function () {
@@ -51,10 +53,10 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
 Route::get('/forgot-password', [ForgotPasswordController::class, 'index'])->name('forgot_password');
 
-Route::prefix('admin')->group(function(){
+Route::prefix('admin')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
 
-    Route::prefix('/quiz')->group(function(){
+    Route::prefix('/quiz')->group(function () {
         Route::get('/', [QuizController::class, 'index'])->name('admin.quiz');
         Route::post('/store', [QuizController::class, 'store'])->name('admin.quiz.store');
         Route::post('/update/{id}', [QuizController::class, 'update'])->name('admin.quiz.update');

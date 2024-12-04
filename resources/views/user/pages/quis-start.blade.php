@@ -4,34 +4,39 @@
 
 @section('content')
     @php
-        $data = [
-            [
-                'id' => 1,
-                'question' => 'Apa tujuan utama dari Sanggar Tabuh Leklok?',
-                'options' => [
-                    'A' => 'Mengajarkan seni tari Bali',
-                    'B' => 'Melestarikan seni tabuh tradisional Bali',
-                    'C' => 'Membuat alat musik tradisional',
-                    'D' => 'Menyelenggarakan festival internasional',
-                ],
-                'answer' => 'A',
-                'corect_answer' => 'A',
-            ],
-            [
-                'id' => 2,
-                'question' => 'Apa tujuan utama dari Sanggar Tabuh Leklok? ',
-                'options' => [
-                    'A' => 'Mengajarkan seni tari Bali',
-                    'B' => 'Melestarikan seni tabuh tradisional Bali',
-                    'C' => 'Membuat alat musik tradisional',
-                    'D' => 'Menyelenggarakan festival internasional',
-                ],
-                'answer' => 'A',
-            ],
-        ];
+        // dd($data);
+        // $data = [
+        //     [
+        //         'id' => 1,
+        //         'question' => 'Apa tujuan utama dari Sanggar Tabuh Leklok?',
+        //         'options' => [
+        //             'A' => 'Mengajarkan seni tari Bali',
+        //             'B' => 'Melestarikan seni tabuh tradisional Bali',
+        //             'C' => 'Membuat alat musik tradisional',
+        //             'D' => 'Menyelenggarakan festival internasional',
+        //         ],
+        //         'answer' => 'A',
+        //         'corect_answer' => 'A',
+        //     ],
+        //     [
+        //         'id' => 2,
+        //         'question' => 'Apa tujuan utama dari Sanggar Tabuh Leklok? ',
+        //         'options' => [
+        //             'A' => 'Mengajarkan seni tari Bali',
+        //             'B' => 'Melestarikan seni tabuh tradisional Bali',
+        //             'C' => 'Membuat alat musik tradisional',
+        //             'D' => 'Menyelenggarakan festival internasional',
+        //         ],
+        //         'answer' => 'A',
+        //     ],
+        // ];
     @endphp
 
-    <div class="container-fluid event py-5">
+    <div class="container-fluid event py-4">
+        <div class="container">
+            <a href="{{ route('quis') }}" class="btn btn-link btn-lg mb-4"><i class="fas fa-chevron-left"></i>
+                Kembali</a>
+        </div>
         <div class="container py-5 shadow bg-light rounded contact-form rounded-4 border-primary border"
             style="overflow:hidden;">
             <div id="question-box" class="container-fluid">
@@ -122,8 +127,8 @@
             $("#question-box").addClass(`animated ${bounceOut}`).on("animationend", function() {
 
                 $(this).removeClass(`animated ${bounceOut}`).off("animationend");
-
-                Object.entries(question.options).forEach(([key, option]) => {
+                let options = JSON.parse(question.options)
+                Object.entries(options).forEach(([key, option]) => {
                     optionsHTML += `
                 <div class="col-lg-6 text-center animated ${bounceIn}" id="answer-box">
                     <input class="btn-check" type="radio" name="answer" id="option-${key}" value="${key}" 
@@ -208,7 +213,19 @@
                         })
                     }
                 });
+            } else {
+                Swal.fire({
+                    title: 'Warning',
+                    text: 'Pastikan semua soal sudah dijawab.',
+                    icon: 'info',
+                })
             }
+        });
+
+        window.addEventListener('beforeunload', function(event) {
+            // Tampilkan pesan konfirmasi
+            event.preventDefault(); // Beberapa browser memerlukan ini untuk menampilkan dialog
+            event.returnValue = ''; // Pesan khusus tidak didukung di sebagian besar browser modern
         });
     </script>
 @endpush
