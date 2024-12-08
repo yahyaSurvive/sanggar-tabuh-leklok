@@ -309,7 +309,28 @@
         $('#save-course').on('click', function () {
             const formData = new FormData();
             let courseId = $('#course-id').val();
+            let courseName = $("#course-name").val();
+            let dayStart = $("#day-start").val();
+            let dayEnd = $("#day-end").val();
+            let startHour = $("#start-hour").val();
+            let endHour = $("#end-hour").val();
+            let additional = $("#course-additional").val();
+            let thumbnailFile = thumbnail.getFiles();
 
+            // Validation required
+            if (!courseName || !dayStart || !dayEnd || !startHour || !endHour || !thumbnailFile.length) {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'All fields are required!',
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                    customClass: {
+                        confirmButton: 'btn btn-danger'
+                    },
+                    buttonsStyling: false
+                });
+                return;
+            }
 
             if(thumbnail.getFile().getMetadata("type")){
                 formData.append("file", "old");
