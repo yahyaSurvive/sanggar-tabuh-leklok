@@ -7,7 +7,17 @@
     <div class="content d-flex justify-content-center align-items-center">
 
         <!-- Login form -->
-        <form class="login-form" action="index.html">
+        <form class="login-form" method="POST" action="{{ route('login.post') }}">
+            @csrf
+            @if ($errors->has('identifier'))
+                <div class="alert alert-warning alert-icon-start alert-dismissible fade show">
+                    <span class="alert-icon bg-warning text-white">
+                        <i class="ph-warning-circle"></i>
+                    </span>
+                    <span class="fw-semibold">Warning!</span> {{ $errors->first('identifier') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            @endif
             <div class="card mb-0">
                 <div class="card-body">
                     <div class="text-center mb-3">
@@ -19,9 +29,9 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Username</label>
+                        <label class="form-label">Username/Email</label>
                         <div class="form-control-feedback form-control-feedback-start">
-                            <input type="text" class="form-control" placeholder="john@doe.com">
+                            <input type="text" name="identifier" class="form-control" placeholder="john@doe.com" required>
                             <div class="form-control-feedback-icon">
                                 <i class="ph-user-circle text-muted"></i>
                             </div>
@@ -31,7 +41,7 @@
                     <div class="mb-3">
                         <label class="form-label">Password</label>
                         <div class="form-control-feedback form-control-feedback-start">
-                            <input type="password" class="form-control" placeholder="•••••••••••">
+                            <input type="password" name="password" class="form-control" placeholder="•••••••••••" required>
                             <div class="form-control-feedback-icon">
                                 <i class="ph-lock text-muted"></i>
                             </div>
