@@ -48,6 +48,18 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ route('admin.gallery') }}" class="nav-link {{ request()->routeIs('admin.gallery') ? 'active' : '' }}">
+                        <i class="ph-file-image"></i>
+                        <span>Gallery</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.course') }}" class="nav-link {{ request()->routeIs('admin.course') ? 'active' : '' }}">
+                        <i class="ph-student"></i>
+                        <span>Course</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('admin.profile') }}" class="nav-link {{ request()->routeIs('admin.profile') ? 'active' : '' }}">
                         <i class="ph-user"></i>
                         <span>Profile</span>

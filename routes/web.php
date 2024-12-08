@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\QuizController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -61,5 +63,20 @@ Route::prefix('admin')->group(function(){
         Route::get('/show/{id}', [QuizController::class, 'detail'])->name('admin.quiz.detail');
         Route::delete('/delete/{id}', [QuizController::class, 'destroy'])->name('admin.quiz.destroy');
     });
+
+    Route::prefix('/gallery')->group(function(){
+        Route::get('/', [GalleryController::class, 'index'])->name('admin.gallery');
+        Route::post('/store', [GalleryController::class, 'store'])->name('admin.gallery.store');
+        Route::get('/get-gallery', [GalleryController::class, 'getGallery'])->name('admin.gallery.get');
+    });
+
+    Route::prefix('/course')->group(function(){
+        Route::get('/', [CourseController::class, 'index'])->name('admin.course');
+        Route::post('/store', [CourseController::class, 'store'])->name('admin.course.store');
+        Route::post('/update/{id}', [CourseController::class, 'update'])->name('admin.course.update');
+        Route::get('/show/{id}', [CourseController::class, 'detail'])->name('admin.course.detail');
+        Route::delete('/delete/{id}', [CourseController::class, 'destroy'])->name('admin.course.destroy');
+    });
+
     Route::get('/profile', [ProfileController::class, 'index'])->name('admin.profile');
 });

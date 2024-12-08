@@ -348,8 +348,18 @@
                     correct_answer: correctAnswer
                 },
                 success: function (response) {
-                    alert(response.message);
-                    location.reload();
+                    Swal.fire({
+                        title: 'Success',
+                        text: response.message,
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                        customClass: {
+                            confirmButton: 'btn btn-success'
+                        },
+                        buttonsStyling: false
+                    }).then(() => {
+                        location.reload();
+                    });
                 },
                 error: function (xhr) {
                     Swal.fire({
