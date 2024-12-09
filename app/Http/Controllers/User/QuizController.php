@@ -9,32 +9,35 @@ use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
 
-class QuisController extends Controller
+class QuizController extends Controller
 {
     public function index()
     {
-        $lastQuiz = Cache::get('quiz');
+        $lastTryout = DB::table('tryout')
+            ->where('id_user', 1)
+            ->latest()
+            ->first();
 
         return view(
-            'user.pages.quis',
+            'user.pages.quiz',
             [
-                'last_quiz' => $lastQuiz
+                'last_tryout' => $lastTryout
             ]
         );
     }
 
-    public function quis_start()
+    public function quiz_start()
     {
         $data = DB::table('quiz')
             ->select('id_quiz as id', 'question', 'options')
             ->take(10)
             ->get();
         return view(
-            'user.pages.quis-start',
+            'user.pages.quiz-start',
             ["data" => $data]
         );
     }
-    public function quis_submit(Request $request)
+    public function quiz_submit(Request $request)
     {
         try {
             $answers = $request->input('answers', []);
@@ -54,7 +57,7 @@ class QuisController extends Controller
                     'question' => $quiz->question,
                     'options' => $quiz->options,
                     'correct_answer' => $quiz->answer,
-                    'answer_user' => $answer
+                    'user_answer' => $answer
                 ];
 
             }
@@ -71,33 +74,30 @@ class QuisController extends Controller
                 $score = 0;
             }
 
-            $tryout = [
-                'id_user' => 1,
-                'quiz' => json_encode($data),
-                'total_correct' => $totalCorrect,
-                'total_questions' => $totalQuestions,
-                'score' => (int) $score
-            ];
+            // $tryout = [
+            //     'id_user' => 1,
+            //     'quiz' => json_encode($data),
+            //     'total_correct' => $totalCorrect,
+            //     'total_questions' => $totalQuestions,
+            //     'score' => (int) $score
+            // ];
 
-            Cache::forever('quiz', $tryout);
+            // Cache::forever('quiz', $tryout);
 
-            // dd($tryout);
-            // DB::table('tryout')
-            //     ->insert([
-            //         'id_user' => 1,
-            //         'quiz' => json_encode($data),
-            //         'total_correct' => $totalCorrect,
-            //         'total_questions' => $totalQuestions,
-            //         'score' => (int) $score,
-            //         'created_at' => Carbon::now(),
-            //         'created_by' => 'user',
-            //         'updated_at' => Carbon::now(),
-            //         'updated_by' => 'user'
-            //     ]);
+            DB::table('tryout')
+                ->insert([
+                    'id_user' => 1,
+                    'quiz' => json_encode($data),
+                    'total_correct' => $totalCorrect,
+                    'total_questions' => $totalQuestions,
+                    'score' => (int) $score,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ]);
 
             return response()->json([
                 'success' => true,
-                'message' => 'Quis berhasil diselesaikan.'
+                'message' => 'quiz berhasil diselesaikan.'
             ]);
 
         } catch (\Throwable $th) {
@@ -109,12 +109,15 @@ class QuisController extends Controller
         }
     }
 
-    public function review_answers()
+    public function review_answers($id)
     {
-        $data = Cache::get('quiz');
+        $data = DB::table('tryout')
+            ->where('id_tryout', $id)
+            ->first();
+        // $data = Cache::get('quiz');
         // Cache::forget('quiz');
         return view(
-            'user.pages.quis-review-answers',
+            'user.pages.quiz-review-answers',
             ["data" => $data]
         );
     }

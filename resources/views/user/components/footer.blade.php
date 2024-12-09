@@ -5,14 +5,18 @@
             <div class="col-lg-12">
                 <div class="footer-item">
                     <div class="footer-icon d-flex justify-content-end">
-                        <a class="btn btn-primary btn-sm-square me-2 rounded-circle" href=""><i
-                                class="fab fa-tiktok"></i></a>
-                        <a class="btn btn-primary btn-sm-square me-2 rounded-circle" href=""><i
-                                class="fas fa-envelope"></i></a>
-                        <a href="#" class="btn btn-primary btn-sm-square me-2 rounded-circle"><i
-                                class="fab fa-instagram"></i></a>
-                        <a href="#" class="btn btn-primary btn-sm-square rounded-circle"><i
+                        <a href="https://wa.me/628124698275?text=Halo%20Saya%20ingin%20menanyakan..."
+                            class="btn btn-primary btn-sm-square rounded-circle me-2" target="_blank"><i
                                 class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.instagram.com/sanggar_leklok?igsh=MXRxdXd6MmQ2Z3Y3Nw==" target="_blank"
+                            class="btn btn-primary btn-sm-square me-2 rounded-circle"><i
+                                class="fab fa-instagram"></i></a>
+                        <a class="btn btn-primary btn-sm-square me-2 rounded-circle"
+                            href="mailto:kd.wik777@gmail.com?subject=Pertanyaan%20Tentang%20Sanggar&body=Halo,%20Saya%20ingin%20menanyakan..."
+                            target="_blank"><i class="fas fa-envelope"></i></a>
+                        <a class="btn btn-primary btn-sm-square rounded-circle"
+                            href="https://www.tiktok.com/@sanggar_leklok" target="_blank"><i
+                                class="fab fa-tiktok"></i></a>
                     </div>
                 </div>
             </div>

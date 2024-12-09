@@ -1,6 +1,6 @@
 @extends('user.layouts.main')
 
-@section('title', 'Quis')
+@section('title', 'quiz')
 
 @section('content')
     @php
@@ -34,7 +34,7 @@
 
     <div class="container-fluid event py-4">
         <div class="container">
-            <a href="{{ route('quis') }}" class="btn btn-link btn-lg mb-4"><i class="fas fa-chevron-left"></i>
+            <a href="{{ route('quiz') }}" class="btn btn-link btn-lg mb-4"><i class="fas fa-chevron-left"></i>
                 Kembali</a>
         </div>
         <div class="container py-5 shadow bg-light rounded contact-form rounded-4 border-primary border"
@@ -180,7 +180,7 @@
             if (Object.keys(userAnswers).length == questions.length) {
                 Swal.fire({
                     title: 'Perhatian',
-                    text: 'Selesaikan quis sekarang?',
+                    text: 'Selesaikan quiz sekarang?',
                     icon: 'info',
                     showCancelButton: true,
                     cancelButtonText: 'Batal',
@@ -189,7 +189,7 @@
                     if (result.isConfirmed) {
                         $.ajax({
                             method: 'POST',
-                            url: '{{ route('quis.submit') }}',
+                            url: '{{ route('quiz.submit') }}',
                             data: {
                                 _token: '{{ csrf_token() }}',
                                 answers: userAnswers
@@ -203,7 +203,7 @@
                                         timer: 1500,
                                         showConfirmButton: false,
                                     }).then((result) => {
-                                        window.location.href = '{{ route('quis') }}';
+                                        window.location.href = '{{ route('quiz') }}';
                                     });
                                 }
                             },

@@ -21,7 +21,8 @@
                 <div class="col-lg-5 col-md-12 wow bounceInUp" data-wow-delay="0.1s">
                     <div class="video">
                         <button type="button" class="btn btn-play" data-bs-toggle="modal"
-                            data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-bs-target="#videoModal">
+                            data-src="https://www.youtube.com/embed/0DCHQtL90Ms?si=n8H-5LneFeXMh070"
+                            data-bs-target="#videoModal">
                             <span></span>
                         </button>
                     </div>

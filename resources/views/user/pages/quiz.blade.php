@@ -1,15 +1,15 @@
 @extends('user.layouts.main')
 
-@section('title', 'Quis')
+@section('title', 'quiz')
 
 @section('content')
     <!-- Hero Start -->
     <div class="container-fluid bg-light py-6 my-6 mt-0">
         <div class="container text-center animated bounceInDown">
-            <h1 class="display-1 mb-4">Quis</h1>
+            <h1 class="display-1 mb-4">Quiz</h1>
             <ol class="breadcrumb justify-content-center mb-0 animated bounceInDown">
                 <li class="breadcrumb-item"><a href="{{ route('/') }}">Beranda</a></li>
-                <li class="breadcrumb-item text-dark" aria-current="page">Quis</li>
+                <li class="breadcrumb-item text-dark" aria-current="page">Quiz</li>
             </ol>
         </div>
     </div>
@@ -22,28 +22,32 @@
         <div class="container">
             <div class="row g-4">
                 <div class="col-lg-7 wow bounceInUp" data-wow-delay="0.1s">
-                    <img src="{{ asset('assets/user/img/quiz.png') }}" class="img-fluid rounded" alt="logo Sanggar"
-                        width="150">
-                    <h4 class="mb-4" style="font-size: 2rem; font-weight: 800;">Quis Sanggar Tabuh LekLok</h4>
-                    <button class="btn btn-primary rounded-pill px-4 py-3 shadow" id="btn-start-quis">
-                        {{ $last_quiz ? 'Ulangi' : 'Mulai' }}
+                    <img src="{{ asset('assets/user/img/quiz.png') }}" class="img-fluid rounded-circle shadow-lg mb-4"
+                        alt="Quiz Logo" width="200">
+                    <h4 class="mb-4" style="font-size: 2rem; font-weight: 800;">Quiz Sanggar Tabuh LekLok</h4>
+                    <button class="btn btn-primary rounded-pill px-4 py-3 shadow" id="btn-start-quiz">
+                        {{ $last_tryout ? 'Ulangi' : 'Mulai' }}
                         Quiz</button>
                 </div>
                 <div class="col-lg-5">
                     <div class="card shadow border-primary wow bounceInUp" data-wow-delay="0.1s">
+                        <div class="card-header bg-primary text-white text-center py-3"
+                            style="font-size: 1.2rem; font-weight: bold;">
+                            Statistik Quiz Anda
+                        </div>
                         <div class="card-body">
-                            @if ($last_quiz)
+                            @if ($last_tryout)
                                 <div class="alert alert-success rounded-1 mb-3" style="min-height: 200px">
                                     <div class="text-center fw-semibold">Perolehan Nilai Terbaru</div>
                                     <div class="text-center" style="font-size: 5rem; font-weight: 800;">
-                                        {{ $last_quiz['score'] }}
+                                        {{ $last_tryout->score }}
                                     </div>
                                     <div class="text-center">Benar :
-                                        <b>{{ $last_quiz['total_correct'] }}/{{ $last_quiz['total_questions'] }}
+                                        <b>{{ $last_tryout->total_correct }}/{{ $last_tryout->total_questions }}
                                             Soal</b>
                                     </div>
                                 </div>
-                                <button class="w-100 btn btn-outline-primary" data-id="1"
+                                <button class="w-100 btn btn-outline-primary" data-id="{{ $last_tryout->id_tryout }}"
                                     id="review-answers">Review</button>
                             @else
                                 <div class="alert alert-secondary rounded-1 mb-3 d-flex justify-content-center align-items-center"
@@ -66,9 +70,9 @@
 @endpush
 @push('scripts')
     <script>
-        let last_quiz = @json($last_quiz);
-        $('#btn-start-quis').click(function() {
-            const text = last_quiz ?
+        let last_tryout = @json($last_tryout);
+        $('#btn-start-quiz').click(function() {
+            const text = last_tryout ?
                 'Kamu yakin ingin mengerjakan quiz kembali (jawaban dan nilai sebelumnya akan dihapus)?' :
                 'Kerjakan quiz sekarang?'
             Swal.fire({
@@ -78,7 +82,7 @@
                 showCancelButton: true,
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = "{{ route('quis.start') }}";
+                    window.location.href = "{{ route('quiz.start') }}";
                 }
             })
 

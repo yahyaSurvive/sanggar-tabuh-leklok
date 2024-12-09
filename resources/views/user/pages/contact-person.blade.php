@@ -23,34 +23,38 @@
                     </div>
                     <div class="col-md-12 col-lg-5">
                         <div>
-                            <div class="d-inline-flex w-100 border border-primary p-4 rounded mb-4">
+                            <a href="https://wa.me/628124698275?text=Halo%20Saya%20ingin%20menanyakan..." target="_blank"
+                                class="d-inline-flex w-100 border border-primary p-4 rounded mb-4">
                                 <i class="fab fa-whatsapp fa-2x text-primary me-4"></i>
                                 <div class="">
                                     <h4>Whatsapp</h4>
                                     <p>08124698275</p>
                                 </div>
-                            </div>
-                            <div class="d-inline-flex w-100 border border-primary p-4 rounded mb-4">
+                            </a>
+                            <a href="mailto:kd.wik777@gmail.com?subject=Pertanyaan%20Tentang%20Sanggar&body=Halo,%20Saya%20ingin%20menanyakan..."
+                                target="_blank" class="d-inline-flex w-100 border border-primary p-4 rounded mb-4">
                                 <i class="fas fa-envelope fa-2x text-primary me-4"></i>
                                 <div class="">
                                     <h4>Mail Us</h4>
                                     <p>kd.wik777@gmail.com</p>
                                 </div>
-                            </div>
-                            <div class="d-inline-flex w-100 border border-primary p-4 rounded mb-4">
+                            </a>
+                            <a href="https://www.instagram.com/sanggar_leklok?igsh=MXRxdXd6MmQ2Z3Y3Nw==" target="_blank"
+                                class="d-inline-flex w-100 border border-primary p-4 rounded mb-4">
                                 <i class="fab fa-instagram fa-2x text-primary me-4"></i>
                                 <div class="">
                                     <h4>Instagram</h4>
                                     <p>@sanggar_leklok</p>
                                 </div>
-                            </div>
-                            <div class="d-inline-flex w-100 border border-primary p-4 rounded">
+                            </a>
+                            <a href="https://www.tiktok.com/@sanggar_leklok" target="_blank"
+                                class="d-inline-flex w-100 border border-primary p-4 rounded">
                                 <i class="fab fa-tiktok fa-2x text-primary me-4"></i>
                                 <div class="">
                                     <h4>Tiktok</h4>
                                     <p>@sanggar_leklok</p>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
                     <div class="col-md-12 col-lg-7">

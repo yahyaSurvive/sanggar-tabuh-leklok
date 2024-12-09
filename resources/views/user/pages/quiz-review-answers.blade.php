@@ -1,12 +1,12 @@
 @extends('user.layouts.main')
 
-@section('title', 'Quis')
+@section('title', 'quiz')
 
 @section('content')
 
     <div class="container-fluid event py-4">
         <div class="container">
-            <a href="{{ route('quis') }}" class="btn btn-link btn-lg mb-4"><i class="fas fa-chevron-left"></i>
+            <a href="{{ route('quiz') }}" class="btn btn-link btn-lg mb-4"><i class="fas fa-chevron-left"></i>
                 Kembali</a>
         </div>
         <div class="container py-5 shadow bg-light rounded contact-form rounded-4 border-primary border"
@@ -75,12 +75,9 @@
         }
     </style>
 @endpush
-@push('js')
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-@endpush
 @push('scripts')
     <script>
-        let questions = @json(json_decode($data['quiz']));
+        let questions = @json(json_decode($data->quiz));
 
         let currentQuestion = 0; // Indeks soal yang sedang ditampilkan
         let userAnswers = {}; // Object untuk menyimpan jawaban pengguna
@@ -101,7 +98,7 @@
                 let options = JSON.parse(question.options)
                 Object.entries(options).forEach(([key, option]) => {
                     let color = 'primary';
-                    if (question.answer_user == key || question.correct_answer == key) {
+                    if (question.user_answer == key || question.correct_answer == key) {
                         color = 'danger';
                         if (question.correct_answer == key) {
                             color = 'success';
@@ -110,7 +107,7 @@
                     optionsHTML += `
                 <div class="col-lg-6 text-center animated ${bounceIn}" id="answer-box">
                     <input class="btn-check" type="checkbox" name="answer" 
-                        ${question.answer_user == key || question.correct_answer == key ? "checked" : ""} disabled>
+                        ${question.user_answer == key || question.correct_answer == key ? "checked" : ""} disabled>
                     <label class="btn btn-outline-${color} btn-lg rounded-pill py-4 btn-option" for="option-${key}">
                         ${key}.${option}
                     </label>
@@ -120,7 +117,7 @@
 
                 let colorAnswer = 'danger';
                 let textAnswer = 'Salah';
-                if (question.answer_user == question.correct_answer) {
+                if (question.user_answer == question.correct_answer) {
                     colorAnswer = 'success';
                     textAnswer = 'Benar';
                 }
@@ -129,7 +126,7 @@
                     <h3 class="text-center fw-bold mb-5 animated ${bounceIn}">${currentQuestion + 1}. ${question.question}</h3>
                     <div class="row">
                     ${optionsHTML} </div>
-                    <div class="text-center animated ${bounceIn} mb-3">Jawaban Kamu : <b>${question.answer_user} </b><span class="badge  bg-${colorAnswer}">${textAnswer}</span></div>
+                    <div class="text-center animated ${bounceIn} mb-3">Jawaban Kamu : <b>${question.user_answer} </b><span class="badge  bg-${colorAnswer}">${textAnswer}</span></div>
                     <div class="text-center animated ${bounceIn} "><b>Jawaban Benar : ${question.correct_answer} </b></div>`
                 );
                 updateButtons(); // Update tombol navigasi
