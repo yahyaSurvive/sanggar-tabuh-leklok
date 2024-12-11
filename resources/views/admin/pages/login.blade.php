@@ -18,6 +18,16 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             @endif
+
+            @if (Session::has('message_reset'))
+                <div class="alert alert-success alert-icon-start alert-dismissible fade show">
+                    <span class="alert-icon bg-success text-white">
+                        <i class="ph-check-circle"></i>
+                    </span>
+                    <span class="fw-semibold">Well done!</span> {{ Session::get('message_reset') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            @endif
             <div class="card mb-0">
                 <div class="card-body">
                     <div class="text-center mb-3">

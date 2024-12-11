@@ -4,7 +4,7 @@
 
 @section('content_auth')
     <div class="content d-flex justify-content-center align-items-center">
-        <form class="login-form" method="POST" action="{{ route('forgot-password.post') }}">
+        <form class="login-form" method="POST" action="{{ route('submitResetPassword.post') }}">
             @csrf
             @if (Session::has('message'))
                 <div class="alert alert-warning alert-icon-start alert-dismissible fade show">
@@ -30,14 +30,32 @@
                         <div class="d-inline-flex bg-primary bg-opacity-10 text-primary lh-1 rounded-pill p-3 mb-3 mt-1">
                             <i class="ph-arrows-counter-clockwise ph-2x"></i>
                         </div>
-                        <h5 class="mb-0">Password recovery</h5>
+                        <h5 class="mb-0">Reset Password</h5>
                         <span class="d-block text-muted">We'll send you instructions in email</span>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Your email</label>
+                        <label class="form-label">Email</label>
                         <div class="form-control-feedback form-control-feedback-start">
                             <input type="email" name="email" class="form-control" placeholder="john@doe.com">
+                            <div class="form-control-feedback-icon">
+                                <i class="ph-at text-muted"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">New Password</label>
+                        <div class="form-control-feedback form-control-feedback-start">
+                            <input type="password" name="new_password" class="form-control" placeholder="john@doe.com">
+                            <div class="form-control-feedback-icon">
+                                <i class="ph-at text-muted"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Confirm Password</label>
+                        <div class="form-control-feedback form-control-feedback-start">
+                            <input type="password" name="confirm_password" class="form-control" placeholder="john@doe.com">
                             <div class="form-control-feedback-icon">
                                 <i class="ph-at text-muted"></i>
                             </div>

@@ -53,11 +53,14 @@ Route::prefix('/user')->group(function () {
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
 Route::get('/forgot-password', [ForgotPasswordController::class, 'index'])->name('forgot_password');
+Route::get('/reset-password', [AuthController::class, 'showFormResetPassword'])->name('showFormResetPassword');
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register'])->name('register.post');
+Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->name('forgot-password.post');
+Route::post('/reset-password', [AuthController::class, 'submitResetPassword'])->name('submitResetPassword.post');
 
 Route::middleware(['auth'])->group(function () {
     Route::middleware(['role:admin'])->group(function () {
