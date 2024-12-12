@@ -54,10 +54,11 @@
         </div>
 
         <!-- Kontak Bantuan -->
-        <div class="row mt-5">
+        <div class="row mt-5 ">
             <div class="col-12 text-center">
                 <p class="lead">Masih membutuhkan bantuan? Hubungi kami melalui tombol berikut:</p>
-                <a href="#" class="btn btn-primary rounded-pill px-4 py-2 shadow">Hubungi Admin</a>
+                <a href="https://wa.me/628124698275?text=Halo%20Saya%20ingin%20menanyakan..." target="_blank"
+                    class="btn btn-primary rounded-pill px-4 py-2 shadow">Hubungi Kami</a>
             </div>
         </div>
     </div>
