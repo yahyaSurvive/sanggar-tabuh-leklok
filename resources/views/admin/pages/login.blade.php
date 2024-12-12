@@ -41,7 +41,7 @@
                     <div class="mb-3">
                         <label class="form-label">Username/Email</label>
                         <div class="form-control-feedback form-control-feedback-start">
-                            <input type="text" name="identifier" class="form-control" placeholder="john@doe.com" required>
+                            <input type="text" name="identifier" value="{{ old('identifier') }}" class="form-control" placeholder="john@doe.com" required>
                             <div class="form-control-feedback-icon">
                                 <i class="ph-user-circle text-muted"></i>
                             </div>
@@ -51,7 +51,7 @@
                     <div class="mb-3">
                         <label class="form-label">Password</label>
                         <div class="form-control-feedback form-control-feedback-start">
-                            <input type="password" name="password" class="form-control" placeholder="•••••••••••" required>
+                            <input type="password" name="password" value="{{ old('password') }}" class="form-control" placeholder="•••••••••••" required>
                             <div class="form-control-feedback-icon">
                                 <i class="ph-lock text-muted"></i>
                             </div>

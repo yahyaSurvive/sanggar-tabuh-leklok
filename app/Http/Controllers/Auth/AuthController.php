@@ -44,7 +44,7 @@ class AuthController extends Controller
                 : redirect('/');
         }
 
-        return back()->withErrors(['identifier' => 'Invalid credentials']);
+        return back()->withErrors(['identifier' => 'Invalid credentials'])->withInput();
     }
 
     public function showRegisterForm()
@@ -139,35 +139,41 @@ class AuthController extends Controller
         try {
             $request->validate([
                 'email' => 'required|email|exists:users,email',
-                'new_password' => 'required|string|min:6',
+                'password' => 'required|confirmed|min:6',
+                'password_confirmation' => 'required',
             ], [
                 'email.required' => 'Email is required.',
                 'email.email' => 'Invalid email format.',
                 'email.exists' => 'This email does not exist in our records.',
-                'new_password.required' => 'Password is required.',
-                'new_password.min' => 'Password must be at least 6 characters.',
+                'password.required' => 'Password is required.',
+                'password.min' => 'Password must be at least 6 characters.',
+                'password.confirmed' => 'Password confirmation does not match.',
+                'password_confirmation.required' => 'Password confirmation is required.'
             ]);
 
 
             $updatePassword = DB::table('password_reset_tokens')
                 ->where([
                     'email' => $request->email,
-                    'token' => $request->token
+                    'token' => $request->reset_token
                 ])
                 ->first();
 
+
             if (!$updatePassword) {
-                return back()->withInput()->with('error', 'Invalid token!');
+                return back()->withInput()->with('error', 'Incorrect authentication!');
             }
 
             $user = User::where('email', $request->email)
             ->update(['password' => bcrypt($request->password)]);
 
-            DB::table('password_reset_tokens')->where(['email' => $request->email])->delete();
+            DB::table('password_reset_tokens')->where([
+                'email' => $request->email,
+                'token' => $request->reset_token
+                ])->delete();
 
             return redirect(route('login'))->with('message_reset', 'Your password has been changed!');
         } catch (ValidationException $e) {
-            dd($e->errors());
             return back()->withErrors($e->errors())->withInput();
         } catch (\Exception $e) {
             return back()->withErrors(['error' => 'Failed to reset password.', 'message' => $e->getMessage()])->withInput();

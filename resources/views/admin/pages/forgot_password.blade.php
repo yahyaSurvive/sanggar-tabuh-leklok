@@ -7,11 +7,11 @@
         <form class="login-form" method="POST" action="{{ route('forgot-password.post') }}">
             @csrf
             @if (Session::has('message'))
-                <div class="alert alert-warning alert-icon-start alert-dismissible fade show">
+                <div class="alert alert-success alert-icon-start alert-dismissible fade show">
                     <span class="alert-icon bg-success text-white">
-                        <i class="ph-warning-circle"></i>
+                        <i class="ph-check-circle"></i>
                     </span>
-                    <span class="fw-semibold">Success!</span> {{ Session::get('message') }}
+                    <span class="fw-semibold">Well done!</span> {{ Session::get('message') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             @endif
