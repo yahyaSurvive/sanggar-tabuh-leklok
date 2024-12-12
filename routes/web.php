@@ -13,7 +13,7 @@ use App\Http\Controllers\User\HomeController as UserHome;
 use App\Http\Controllers\User\ActivityController as UserActivity;
 use App\Http\Controllers\User\ContactController as UserContact;
 use App\Http\Controllers\User\HelpController as UserHelp;
-use App\Http\Controllers\User\QuisController as UserQuis;
+use App\Http\Controllers\User\QuizController as UserQuiz;
 use App\Http\Controllers\User\AboutController as UserAbout;
 use App\Http\Controllers\User\BerandaController as UserBeranda;
 use App\Http\Controllers\User\UserController as UserSetting;
@@ -24,14 +24,16 @@ Route::get('/', [UserBeranda::class, 'index'])->name('/');
 Route::get('/contact-person', function () {
     return view('user.pages.contact-person');
 })->name('contact-person');
+
 Route::get('/help', function () {
     return view('user.pages.help');
 })->name('help');
 
-Route::prefix('/quis')->group(function () {
-    Route::get('/', [UserQuis::class, 'index'])->name('quis');
-    Route::get('/start', [UserQuis::class, 'quis_start'])->name('quis.start');
-    Route::post('/start', [UserQuis::class, 'quis_submit'])->name('quis.submit');
+Route::prefix('/quiz')->group(function () {
+    Route::get('/', [UserQuiz::class, 'index'])->name('quiz');
+    Route::get('/start', [UserQuiz::class, 'quiz_start'])->name('quiz.start');
+    Route::post('/start', [UserQuiz::class, 'quiz_submit'])->name('quiz.submit');
+    Route::get('/review-answers/{id}', [UserQuiz::class, 'review_answers'])->name('quiz.review-answers');
 });
 
 Route::prefix('/about-us')->group(function () {

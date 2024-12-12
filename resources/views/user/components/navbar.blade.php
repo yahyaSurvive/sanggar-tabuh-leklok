@@ -39,10 +39,11 @@
                                  Pilihan Les</a>
                          </div>
                      </div>
+
+                     <a href="{{ route('quiz') }}"
+                         class="nav-item nav-link {{ in_array(Route::currentRouteName(), ['quiz', 'quiz.start', 'quiz.review-answers']) ? 'active' : '' }}">Quiz</a>
                      <a href="{{ route('contact-person') }}"
                          class="nav-item nav-link {{ Route::currentRouteName() === 'contact-person' ? 'active' : '' }}">Kontak</a>
-                     <a href="{{ route('quis') }}"
-                         class="nav-item nav-link {{ Route::currentRouteName() === 'quis' || Route::currentRouteName() === 'quis.start' ? 'active' : '' }}">Quis</a>
                      <a href="{{ route('help') }}"
                          class="nav-item nav-link {{ Route::currentRouteName() === 'help' ? 'active' : '' }}">Bantuan</a>
                  </div>
@@ -63,15 +64,16 @@
                              <a href="{{ route('user.change-password') }}"
                                  class="dropdown-item {{ Route::currentRouteName() === 'user.change-password' ? 'active' : '' }}">
                                  Ganti Password</a>
+                             <a href="{{ route('user.change-password') }}" class="dropdown-item">
+                                 Logout </a>
                          </div>
                      </div>
                  @else
                      <a href="#"
                          class="btn-search btn btn-primary btn-md-square me-4 rounded-circle d-none d-lg-inline-flex"><i
-                             class="fas fa-sign-in-alt"></i></a>
+                             class="fas fa-sign-in-alt"></i>
+                     </a>
                  @endif
-
-
              </div>
          </nav>
      </div>
