@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 
 class QuizController extends Controller
@@ -14,7 +15,7 @@ class QuizController extends Controller
     public function index()
     {
         $lastTryout = DB::table('tryout')
-            ->where('id_user', 1)
+            ->where('id_user', Auth::user()->id)
             ->latest()
             ->first();
 
@@ -74,19 +75,9 @@ class QuizController extends Controller
                 $score = 0;
             }
 
-            // $tryout = [
-            //     'id_user' => 1,
-            //     'quiz' => json_encode($data),
-            //     'total_correct' => $totalCorrect,
-            //     'total_questions' => $totalQuestions,
-            //     'score' => (int) $score
-            // ];
-
-            // Cache::forever('quiz', $tryout);
-
             DB::table('tryout')
                 ->insert([
-                    'id_user' => 1,
+                    'id_user' => Auth::user()->id,
                     'quiz' => json_encode($data),
                     'total_correct' => $totalCorrect,
                     'total_questions' => $totalQuestions,

@@ -22,12 +22,23 @@
         <div class="container">
             <div class="row g-4">
                 <div class="col-lg-7 wow bounceInUp" data-wow-delay="0.1s">
-                    <img src="{{ asset('assets/user/img/quiz.png') }}" class="img-fluid rounded-circle shadow-lg mb-4"
-                        alt="Quiz Logo" width="200">
-                    <h4 class="mb-4" style="font-size: 2rem; font-weight: 800;">Quiz Sanggar Tabuh LekLok</h4>
-                    <button class="btn btn-primary rounded-pill px-4 py-3 shadow" id="btn-start-quiz">
-                        {{ $last_tryout ? 'Ulangi' : 'Mulai' }}
-                        Quiz</button>
+                    <div class="card shadow">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="{{ asset('assets/user/img/quiz1.jpg') }}" class="card-img-top">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h4 class="card-title">Quiz Sanggar Tabuh LekLok</h4>
+                                    <p class="card-text">Klik Tombol dibawah untuk memulai quiz.</p>
+                                    <hr>
+                                    <button class="btn btn-primary rounded-pill px-4 py-2 shadow" id="btn-start-quiz">
+                                        {{ $last_tryout ? 'Ulangi' : 'Mulai' }}
+                                        Quiz</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-lg-5">
                     <div class="card shadow border-primary wow bounceInUp" data-wow-delay="0.1s">

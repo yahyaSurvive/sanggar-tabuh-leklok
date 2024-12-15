@@ -3,16 +3,8 @@
 @section('title', 'Ganti Password')
 
 @section('content')
-    @php
-        $user = (object) [
-            'name' => 'Kagura',
-            'gender' => 1,
-            'email' => 'kagura@gmail.com',
-            'no_hp' => '0812323123123',
-        ];
-    @endphp
     <!-- Book Us Start -->
-    <div class="container-fluid contact py-6 wow bounceInUp" data-wow-delay="0.1s">
+    <div class="container-fluid contact py-6 ">
         <div class="container">
             <div class="d-flex justify-content-center">
                 <div class="col-lg-5">
@@ -35,6 +27,16 @@
                                 @enderror
                             </div>
                             <div class="col-lg-12">
+                                <label for="form-name" class="form-label fw-bold">Username</label>
+                                <input type="text"
+                                    class="form-control p-2 border-primary @error('username') is-invalid border-danger @enderror"
+                                    id="form-username" name="username" value="{{ old('name', $user->username) }}"
+                                    placeholder="Masukan Username">
+                                @error('username')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            {{-- <div class="col-lg-12">
                                 <label for="form-phone" id="form-gender1" class="form-label fw-bold">Jenis Kelamin</label>
                                 <div class="d-flex gap-4">
                                     <div class="form-group">
@@ -48,7 +50,7 @@
                                         <label for="form-gender2" class="form-label">Perempuan</label>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="col-lg-12">
                                 <label for="form-email" class="form-label fw-bold">Email</label>
                                 <input type="email"
@@ -59,7 +61,7 @@
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="col-lg-12">
+                            {{-- <div class="col-lg-12">
                                 <label for="form-no_hp" class="form-label fw-bold">No Hp</label>
                                 <input type="mobile"
                                     class="form-control border-primary p-2 @error('no_hp') is-invalid border-danger @enderror"
@@ -68,7 +70,7 @@
                                 @error('no_hp')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
-                            </div>
+                            </div> --}}
 
                             <div class="col-12 text-center">
                                 <button type="submit" class="btn btn-primary px-3 py-2"> <i class="fas fa-save"></i>
@@ -83,3 +85,17 @@
     </div>
     <!-- Book Us End -->
 @endsection
+@push('js')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@endpush
+@push('scripts')
+    @if (session('message'))
+        <script>
+            Swal.fire({
+                title: 'Berhasil',
+                text: "{{ session('message') }}",
+                icon: 'success'
+            });
+        </script>
+    @endif
+@endpush

@@ -2,7 +2,7 @@
  <div class="container-fluid nav-bar">
      <div class="container">
          <nav class="navbar navbar-light navbar-expand-lg py-3">
-             <a href="index.html" class="navbar-brand">
+             <a href="{{ route('/') }}" class="navbar-brand">
                  <img src="{{ asset('assets/user/img/logo-sanggar.png') }}" alt="Logo Sanggar Tabuh Leklok" width="50">
              </a>
              <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse"
@@ -48,15 +48,11 @@
                          class="nav-item nav-link {{ Route::currentRouteName() === 'help' ? 'active' : '' }}">Bantuan</a>
                  </div>
 
-                 @php
-                     $login = true;
-                 @endphp
-
-                 @if ($login)
+                 @if (Auth::user())
                      <div class="nav-item dropdown">
                          <a href="#"
-                             class="btn-search btn btn-primary btn-md-square me-1 rounded-circle d-none d-lg-inline-flex"
-                             data-bs-toggle="dropdown"><i class="fas fa-user"></i></a> username
+                             class="btn-search btn btn-primary btn-md-square me-1 rounded-circle d-inline-flex"
+                             data-bs-toggle="dropdown"><i class="fas fa-user"></i></a> {{ Auth::user()->username }}
                          <div class="dropdown-menu bg-light">
                              <a href="{{ route('user.profile') }}"
                                  class="dropdown-item {{ Route::currentRouteName() === 'user.profile' ? 'active' : '' }}">
@@ -64,13 +60,13 @@
                              <a href="{{ route('user.change-password') }}"
                                  class="dropdown-item {{ Route::currentRouteName() === 'user.change-password' ? 'active' : '' }}">
                                  Ganti Password</a>
-                             <a href="{{ route('user.change-password') }}" class="dropdown-item">
+                             <a href="{{ route('logout') }}" class="dropdown-item">
                                  Logout </a>
                          </div>
                      </div>
                  @else
-                     <a href="#"
-                         class="btn-search btn btn-primary btn-md-square me-4 rounded-circle d-none d-lg-inline-flex"><i
+                     <a href="{{ route('login') }}"
+                         class="btn-search btn btn-primary btn-md-square me-4 rounded-circle  d-lg-inline-flex"><i
                              class="fas fa-sign-in-alt"></i>
                      </a>
                  @endif

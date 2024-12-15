@@ -3,35 +3,6 @@
 @section('title', 'quiz')
 
 @section('content')
-    @php
-        // dd($data);
-        // $data = [
-        //     [
-        //         'id' => 1,
-        //         'question' => 'Apa tujuan utama dari Sanggar Tabuh Leklok?',
-        //         'options' => [
-        //             'A' => 'Mengajarkan seni tari Bali',
-        //             'B' => 'Melestarikan seni tabuh tradisional Bali',
-        //             'C' => 'Membuat alat musik tradisional',
-        //             'D' => 'Menyelenggarakan festival internasional',
-        //         ],
-        //         'answer' => 'A',
-        //         'corect_answer' => 'A',
-        //     ],
-        //     [
-        //         'id' => 2,
-        //         'question' => 'Apa tujuan utama dari Sanggar Tabuh Leklok? ',
-        //         'options' => [
-        //             'A' => 'Mengajarkan seni tari Bali',
-        //             'B' => 'Melestarikan seni tabuh tradisional Bali',
-        //             'C' => 'Membuat alat musik tradisional',
-        //             'D' => 'Menyelenggarakan festival internasional',
-        //         ],
-        //         'answer' => 'A',
-        //     ],
-        // ];
-    @endphp
-
     <div class="container-fluid event py-4">
         <div class="container">
             <a href="{{ route('quiz') }}" class="btn btn-link btn-lg mb-4"><i class="fas fa-chevron-left"></i>
@@ -196,6 +167,8 @@
                             },
                             success: function(response) {
                                 if (response.success) {
+                                    window.removeEventListener('beforeunload',
+                                        beforeUnloadHandler);
                                     Swal.fire({
                                         title: 'Sukses',
                                         text: 'Berhasil menyelesaikan kuis',
@@ -222,10 +195,13 @@
             }
         });
 
-        window.addEventListener('beforeunload', function(event) {
-            // Tampilkan pesan konfirmasi
-            event.preventDefault(); // Beberapa browser memerlukan ini untuk menampilkan dialog
-            event.returnValue = ''; // Pesan khusus tidak didukung di sebagian besar browser modern
-        });
+        // Tambahkan handler beforeunload ke variabel
+        function beforeUnloadHandler(event) {
+            event.preventDefault();
+            event.returnValue = ''; // Tampilkan dialog konfirmasi default
+        }
+
+        // Tambahkan event listener untuk beforeunload
+        window.addEventListener('beforeunload', beforeUnloadHandler);
     </script>
 @endpush

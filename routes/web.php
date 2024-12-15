@@ -9,10 +9,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\User\HomeController as UserHome;
 use App\Http\Controllers\User\ActivityController as UserActivity;
-use App\Http\Controllers\User\ContactController as UserContact;
-use App\Http\Controllers\User\HelpController as UserHelp;
 use App\Http\Controllers\User\QuizController as UserQuiz;
 use App\Http\Controllers\User\AboutController as UserAbout;
 use App\Http\Controllers\User\BerandaController as UserBeranda;
@@ -29,11 +26,21 @@ Route::get('/help', function () {
     return view('user.pages.help');
 })->name('help');
 
-Route::prefix('/quiz')->group(function () {
-    Route::get('/', [UserQuiz::class, 'index'])->name('quiz');
-    Route::get('/start', [UserQuiz::class, 'quiz_start'])->name('quiz.start');
-    Route::post('/start', [UserQuiz::class, 'quiz_submit'])->name('quiz.submit');
-    Route::get('/review-answers/{id}', [UserQuiz::class, 'review_answers'])->name('quiz.review-answers');
+Route::middleware(['auth'])->group(callback: function () {
+    Route::middleware(['role:user', 'role:admin'])->group(function () {
+        Route::prefix('/quiz')->group(function () {
+            Route::get('/', [UserQuiz::class, 'index'])->name('quiz');
+            Route::get('/start', [UserQuiz::class, 'quiz_start'])->name('quiz.start');
+            Route::post('/start', [UserQuiz::class, 'quiz_submit'])->name('quiz.submit');
+            Route::get('/review-answers/{id}', [UserQuiz::class, 'review_answers'])->name('quiz.review-answers');
+        });
+        Route::prefix('/user')->group(function () {
+            Route::get('/profile', [UserSetting::class, 'profile'])->name('user.profile');
+            Route::post('/profile', [UserSetting::class, 'update_profile'])->name('user.profile.update');
+            Route::get('/change-password', [UserSetting::class, 'change_password'])->name('user.change-password');
+            Route::post('/change-password', [UserSetting::class, 'update_password'])->name('user.update-password');
+        });
+    });
 });
 
 Route::prefix('/about-us')->group(function () {
@@ -43,13 +50,6 @@ Route::prefix('/about-us')->group(function () {
 Route::prefix('/activity')->group(function () {
     Route::get('/gallery', [UserActivity::class, 'gallery'])->name('activity.gallery');
     Route::get('/course', [UserActivity::class, 'course'])->name('activity.course');
-});
-
-Route::prefix('/user')->group(function () {
-    Route::get('/profile', [UserSetting::class, 'profile'])->name('user.profile');
-    Route::post('/profile', [UserSetting::class, 'update_profile'])->name('user.profile.update');
-    Route::get('/change-password', [UserSetting::class, 'change_password'])->name('user.change-password');
-    Route::post('/change-password', [UserSetting::class, 'update_password'])->name('user.update-password');
 });
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -67,10 +67,10 @@ Route::post('/reset-password', [AuthController::class, 'submitResetPassword'])->
 Route::middleware(['auth'])->group(function () {
     Route::middleware(['role:admin'])->group(function () {
         // Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
-        Route::prefix('admin')->group(function(){
+        Route::prefix('admin')->group(function () {
             Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
 
-            Route::prefix('/quiz')->group(function(){
+            Route::prefix('/quiz')->group(function () {
                 Route::get('/', [QuizController::class, 'index'])->name('admin.quiz');
                 Route::post('/store', [QuizController::class, 'store'])->name('admin.quiz.store');
                 Route::post('/update/{id}', [QuizController::class, 'update'])->name('admin.quiz.update');
@@ -78,13 +78,13 @@ Route::middleware(['auth'])->group(function () {
                 Route::delete('/delete/{id}', [QuizController::class, 'destroy'])->name('admin.quiz.destroy');
             });
 
-            Route::prefix('/gallery')->group(function(){
+            Route::prefix('/gallery')->group(function () {
                 Route::get('/', [GalleryController::class, 'index'])->name('admin.gallery');
                 Route::post('/store', [GalleryController::class, 'store'])->name('admin.gallery.store');
                 Route::get('/get-gallery', [GalleryController::class, 'getGallery'])->name('admin.gallery.get');
             });
 
-            Route::prefix('/course')->group(function(){
+            Route::prefix('/course')->group(function () {
                 Route::get('/', [CourseController::class, 'index'])->name('admin.course');
                 Route::post('/store', [CourseController::class, 'store'])->name('admin.course.store');
                 Route::post('/update/{id}', [CourseController::class, 'update'])->name('admin.course.update');
@@ -92,7 +92,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::delete('/delete/{id}', [CourseController::class, 'destroy'])->name('admin.course.destroy');
             });
 
-            Route::prefix('/profile')->group(function(){
+            Route::prefix('/profile')->group(function () {
                 Route::get('/', [ProfileController::class, 'index'])->name('admin.profile');
                 Route::post('/update', [ProfileController::class, 'update'])->name('admin.profile.store');
             });
@@ -101,5 +101,9 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+});
+
+Route::fallback(function () {
+    return response()->view('user.pages.404', [], 404);
 });
 

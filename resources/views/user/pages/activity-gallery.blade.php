@@ -24,7 +24,7 @@
                         @forelse ($data as $key => $row)
                             <div class="col-md-6 col-lg-3 wow bounceInUp" data-wow-delay="0.1s">
                                 <div class="event-img position-relative">
-                                    <img class="img-fluid rounded w-100" src="{{ asset('assets/user/img/sanggar.jpg') }}"
+                                    <img class="img-fluid rounded w-100" src="{{ asset('gallery/' . $row->link) }}"
                                         alt="">
                                     <div class="event-overlay d-flex flex-column p-4">
                                         <h4 class="me-auto">Image {{ $key + 1 }}</h4>

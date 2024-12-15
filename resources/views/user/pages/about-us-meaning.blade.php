@@ -19,8 +19,8 @@
     <!-- About Satrt -->
     <div class="container-fluid py-4">
         <div class="container">
-            <div class="row g-5 align-items-center">
-                <div class="col-lg-7 wow bounceInUp" data-wow-delay="0.3s">
+            <div class="d-flex gap-4 flex-column-reverse flex-lg-row">
+                <div class="col-12 col-lg-7 wow bounceInUp" data-wow-delay="0.3s">
                     <h1 class="display-5 mb-4">Arti Logo</h1>
                     <div style="text-align: justify">
                         <p class="mb-3"><span class="me-5"></span>Sanggar Leklok memiliki Logo TERATAI dengan 7 (Tujuh)
@@ -34,15 +34,17 @@
                             “Teratai Dengan 7 Bilah Daun”.</p>
                         <h1 class="display-5 mb-4">Arti Leklok</h1>
                         <p><span class="me-5"></span>Lana, eling, kariinan, lestariang, oneng-onengan, katamiang
-                            artinya : selalu ingat leluhur dan melestarikan bakat seni yang di wariskan</p>
+                            artinya : selalu ingat leluhur dan melestarikan bakat seni yang diwariskan.</p>
                     </div>
                 </div>
-                <div class="col-lg-5 wow bounceInUp" data-wow-delay="0.1s">
+                <div class="col-12 col-lg-5 wow bounceInUp" data-wow-delay="0.1s">
                     <img src="{{ asset('assets/user/img/logo-sanggar-satin.png') }}" class="img-fluid rounded"
                         alt="logo Sanggar">
                 </div>
             </div>
+
         </div>
+    </div>
     </div>
     <!-- About End -->
 @endsection

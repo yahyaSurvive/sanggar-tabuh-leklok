@@ -4,7 +4,7 @@
 
 @section('content')
     <!-- Book Us Start -->
-    <div class="container-fluid contact py-6 wow bounceInUp" data-wow-delay="0.1s">
+    <div class="container-fluid contact py-6 ">
         <div class="container">
             <div class="d-flex justify-content-center">
                 <div class="col-lg-5">
@@ -47,3 +47,17 @@
     </div>
     <!-- Book Us End -->
 @endsection
+@push('js')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@endpush
+@push('scripts')
+    @if (session('message'))
+        <script>
+            Swal.fire({
+                title: 'Berhasil',
+                text: "{{ session('message') }}",
+                icon: 'success'
+            });
+        </script>
+    @endif
+@endpush

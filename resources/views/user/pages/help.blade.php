@@ -54,7 +54,7 @@
         </div>
 
         <!-- Kontak Bantuan -->
-        <div class="row mt-5 ">
+        <div class="row mt-5 wow bounceInUp" data-wow-delay="0.2s">
             <div class="col-12 text-center">
                 <p class="lead">Masih membutuhkan bantuan? Hubungi kami melalui tombol berikut:</p>
                 <a href="https://wa.me/628124698275?text=Halo%20Saya%20ingin%20menanyakan..." target="_blank"

@@ -23,17 +23,21 @@
                     <div class="row g-4">
                         @forelse ($data as $row)
                             <div class="col-lg-6 wow bounceInUp" data-wow-delay="0.1s">
-                                <div class="menu-item d-flex align-items-center">
-                                    <img class="flex-shrink-0 img-fluid "
-                                        src="{{ asset('assets/user/img/logo-sanggar-satin.png') }}" width="120"
-                                        alt="">
-                                    <div class="w-100 d-flex flex-column text-start ps-4">
+                                <div class="menu-item d-flex flex-column gap-2 flex-lg-row mb-3 align-items-center">
+                                    <div class="col-12 col-lg-4 mb-2" style="height: 8rem;">
+                                        <img class="flex-shrink-0 img-fluid img-cover"
+                                            style="width: 100%; height: 100%; object-fit: cover;"
+                                            src="{{ asset('course/' . $row->photo) }}" alt="">
+                                    </div>
+                                    <div class="col-12 col-lg-8 d-flex flex-column text-start">
                                         <div class="border-bottom border-primary pb-2 mb-2">
                                             <h4 class="text-primary">{{ $row->start_day }}
                                                 {{ $row->end_day ? " - {$row->end_day}" : '' }}</h4>
                                         </div>
                                         <h5>- {{ $row->name }} -</h5>
-                                        <p class="mb-0">Waktu : {{ $row->start_hour }} - {{ $row->end_hour }}</p>
+                                        <p class="mb-0">Waktu :
+                                            {{ \Carbon\Carbon::parse($row->start_hour)->format('H:i') }} -
+                                            {{ \Carbon\Carbon::parse($row->end_hour)->format('H:i') }}</p>
                                     </div>
                                 </div>
                             </div>
