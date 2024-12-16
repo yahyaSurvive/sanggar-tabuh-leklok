@@ -1,5 +1,6 @@
 <!-- Footer Start -->
-<div class="container-fluid footer py-4 my-6 mb-0 bg-light " data-wow-delay="0.1s">
+<div class="container-fluid footer py-4 my-6 mb-0 bg-light "
+    @if (Route::currentRouteName() === '/') style="background-color : transparent !important;" @endif data-wow-delay="0.1s">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">

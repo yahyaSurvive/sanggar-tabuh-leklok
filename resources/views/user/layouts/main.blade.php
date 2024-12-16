@@ -30,12 +30,28 @@
     <!-- Template Stylesheet -->
     <link href="{{ asset('assets/user/css/style.css') }}" rel="stylesheet">
 
+    @if (Route::currentRouteName() === '/')
+        <style>
+            .nav-link {
+                color: #cccccc !important;
+            }
+
+            .nav-link:hover {
+                color: #D4A861 !important;
+            }
+
+            .nav-link.active {
+                color: #D4A861 !important;
+            }
+        </style>
+    @endif
+
     @stack('css')
 
 </head>
 
-<body>
-
+<body
+    @if (Route::currentRouteName() === '/') style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{{ asset('assets/user/img/cover-video.jpg') }}'); background-repeat: no-repeat; background-size: cover;" @endif>
     <!-- Spinner Start -->
     <div id="spinner"
         class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">

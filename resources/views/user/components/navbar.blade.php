@@ -1,5 +1,6 @@
  <!-- Navbar start -->
- <div class="container-fluid nav-bar">
+ <div class="container-fluid nav-bar"
+     @if (Route::currentRouteName() === '/') style="background-color : transparent !important;" @endif>
      <div class="container">
          <nav class="navbar navbar-light navbar-expand-lg py-3">
              <a href="{{ route('/') }}" class="navbar-brand">
