@@ -27,7 +27,7 @@ Route::get('/help', function () {
 })->name('help');
 
 Route::middleware(['auth'])->group(callback: function () {
-    Route::middleware(['role:user', 'role:admin'])->group(function () {
+    Route::middleware(['role:user ,admin'])->group(function () {
         Route::prefix('/quiz')->group(function () {
             Route::get('/', [UserQuiz::class, 'index'])->name('quiz');
             Route::get('/start', [UserQuiz::class, 'quiz_start'])->name('quiz.start');

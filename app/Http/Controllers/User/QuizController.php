@@ -31,6 +31,7 @@ class QuizController extends Controller
     {
         $data = DB::table('quiz')
             ->select('id_quiz as id', 'question', 'options')
+            ->whereNull('deleted_at')
             ->take(10)
             ->get();
         return view(
@@ -105,8 +106,6 @@ class QuizController extends Controller
         $data = DB::table('tryout')
             ->where('id_tryout', $id)
             ->first();
-        // $data = Cache::get('quiz');
-        // Cache::forget('quiz');
         return view(
             'user.pages.quiz-review-answers',
             ["data" => $data]

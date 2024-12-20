@@ -28,7 +28,7 @@
                                         alt="">
                                     <div class="event-overlay d-flex flex-column p-4">
                                         <h4 class="me-auto">Image {{ $key + 1 }}</h4>
-                                        <a href="{{ asset('assets/user/img/sanggar.jpg') }}" data-lightbox="event-1"
+                                        <a href="{{ asset('gallery/' . $row->link) }}" data-lightbox="event-1"
                                             class="my-auto"><i class="fas fa-search-plus text-dark fa-2x"></i></a>
                                     </div>
                                 </div>
