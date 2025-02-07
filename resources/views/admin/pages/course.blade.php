@@ -25,9 +25,11 @@
                     <tr>
                         <th>No.</th>
                         <th>Course Name</th>
+                        <th>Price</th>
                         <th>Day</th>
                         <th>Hour</th>
                         <th>photo</th>
+                        <th>Video</th>
                         <th class="text-center">Actions</th>
                     </tr>
                 </thead>
@@ -36,10 +38,23 @@
                         <tr>
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $item->name }}</td>
-                            <td>{{ $item->start_day }} - {{ $item->end_day }}</td>
+                            <td>Rp. {{ number_format($item->price, 0, ',', '.') }}</td>
+                            @php
+                                $day = $item->end_day ? $item->start_day. "-". $item->end_day : $item->start_day;
+                            @endphp
+                            <td>{{ $day }}</td>
                             <td>{{ \Carbon\Carbon::parse($item->start_hour)->format('H.i') }} - {{ \Carbon\Carbon::parse($item->end_hour)->format('H.i') }}</td>
                             <td>
                                 <img src="{{ asset("/course/".$item->photo) }}" alt="thumbnail" width="150">
+                            </td>
+                            <td>
+                                @if (!empty($item->video_link))
+                                <div class="text-center">
+                                    <iframe frameborder="0" allowfullscreen src="{{ $item->video_link }}"></iframe>
+                                </div>
+                                @else
+                                    <p class="text-center">None</p>
+                                @endif
                             </td>
                             <td class="text-center">
                                 <div class="d-inline-flex">
@@ -86,8 +101,14 @@
 
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="" class="form-label">Course Name</label>
-                        <input id="course-name" type="text" class="form-control" placeholder="Makendang jauk manis">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Course Name</label>
+                            <input id="course-name" type="text" class="form-control" placeholder="Makendang jauk manis">
+                        </div>
+                        <div>
+                            <label for="" class="form-label">Price</label>
+                            <input id="course-price" type="number" class="form-control" placeholder="Rp. 20.000">
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
@@ -140,7 +161,14 @@
 
                     <div class="mb-3">
                         <label for="" class="form-label">Thumbnail</label>
-                        <input type="file" id="course-thumbnail" name="file" />
+                        <input type="file" id="course-thumbnail" name="file"/>
+                    </div>
+                    <div class="mb-3">
+                        <label for="course-video" class="form-label">Video</label>
+                        <input type="url" id="course-video" name="course_video" class="form-control" />
+                        <div id="video-container" class="mt-3">
+                            <iframe id="course-video-preview" width="560" height="315" frameborder="0" allowfullscreen style="display: none"></iframe>
+                        </div>
                     </div>
 
                     {{-- <div style="height: 1px; width: 100%; background-color: silver" class="my-2"></div> --}}
@@ -243,6 +271,21 @@
         FilePond.registerPlugin(FilePondPluginImagePreview);
         let thumbnail = FilePond.create(document.querySelector("#course-thumbnail"));
 
+        function loadVideo(){
+            $("#course-video").on('input', function () {
+                var url = $(this).val().trim();
+
+                if (url) {
+                    $("#course-video-preview").attr("src", url);
+                    $("#course-video-preview").show();
+                } else {
+                    $("#course-video-preview").hide();
+                }
+            });
+        }
+
+        loadVideo();
+
 
         $("#add-quiz").click(function (e) {
             $('#course-id').val("");
@@ -253,6 +296,7 @@
             $('#start-hour').val("");
             $('#end-hour').val("");
             $('#course-additional').val("");
+            $('#course-video').val("");
             thumbnail.removeFiles();
 
             $('.modal-title').text('Add Course');
@@ -274,11 +318,14 @@
                     if (response.success) {
                         $('#course-id').val(response.data.id_course);
                         $('#course-name').val(response.data.name);
+                        $('#course-price').val(response.data.price);
                         $('#day-start').val(response.data.start_day);
                         $('#day-end').val(response.data.end_day);
                         $('#start-hour').val(response.data.start_hour);
                         $('#end-hour').val(response.data.end_hour);
                         $('#course-additional').val(response.data.additional);
+                        $('#course-video').val(response.data.video_link);
+                        loadVideo();
 
                         thumbnail = FilePond.create(document.querySelector("#course-thumbnail"), {
                             files:  [
@@ -310,15 +357,17 @@
             const formData = new FormData();
             let courseId = $('#course-id').val();
             let courseName = $("#course-name").val();
+            let price = $("#course-price").val();
             let dayStart = $("#day-start").val();
             let dayEnd = $("#day-end").val();
             let startHour = $("#start-hour").val();
             let endHour = $("#end-hour").val();
             let additional = $("#course-additional").val();
+            let courseVideo = $("#course-video").val();
             let thumbnailFile = thumbnail.getFiles();
 
             // Validation required
-            if (!courseName || !dayStart || !dayEnd || !startHour || !endHour || !thumbnailFile.length) {
+            if (!courseName || !price || !dayStart || !startHour || !endHour || !thumbnailFile.length) {
                 Swal.fire({
                     title: 'Error',
                     text: 'All fields are required!',
@@ -340,11 +389,18 @@
             }
 
             formData.append("name_course", $("#course-name").val());
-            formData.append("day_start", $("#day-start").val());
-            formData.append("day_end", $("#day-end").val());
+            formData.append("price_course", $("#course-price").val());
+            if(dayStart === dayEnd){
+                formData.append("day_start", $("#day-start").val());
+            }
+            else{
+                formData.append("day_start", $("#day-start").val());
+                formData.append("day_end", $("#day-end").val());
+            }
             formData.append("start_hour", $("#start-hour").val());
             formData.append("end_hour", $("#end-hour").val());
             formData.append("additional", $("#course-additional").val());
+            formData.append("course_video", $("#course-video").val());
 
             $.ajax({
                 url: courseId ? '{{ route('admin.course.update', ['id' => '__id__']) }}'.replace('__id__', courseId) : '{{ route('admin.course.store') }}',
