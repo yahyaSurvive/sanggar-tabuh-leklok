@@ -16,7 +16,7 @@
                          class="nav-item nav-link {{ Route::currentRouteName() === '/' ? 'active' : '' }}">Beranda</a>
                      <div class="nav-item dropdown">
                          <a href="#"
-                             class="nav-link dropdown-toggle {{ Route::currentRouteName() === 'about-us.history' || Route::currentRouteName() === 'about-us.meaning' ? 'active' : '' }}"
+                             class="nav-link dropdown-toggle {{ in_array(Route::currentRouteName() , ['about-us.history', 'about-us.meaning', 'about-us.achievement', 'about-us.trainer-profile']) ? 'active' : '' }}"
                              data-bs-toggle="dropdown">Tentang Kami</a>
                          <div class="dropdown-menu bg-light">
                              <a href="{{ route('about-us.history') }}"
@@ -24,6 +24,12 @@
                              </a>
                              <a href="{{ route('about-us.meaning') }}"
                                  class="dropdown-item {{ Route::currentRouteName() === 'about-us.meaning' ? 'active' : '' }}">Makna
+                             </a>
+                             <a href="{{ route('about-us.achievement') }}"
+                                 class="dropdown-item {{ Route::currentRouteName() === 'about-us.achievement' ? 'active' : '' }}">Prestasi
+                             </a>
+                             <a href="{{ route('about-us.trainer-profile') }}"
+                                 class="dropdown-item {{ Route::currentRouteName() === 'about-us.trainer-profile' ? 'active' : '' }}">Profil Pelatih
                              </a>
                          </div>
                      </div>

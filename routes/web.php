@@ -9,7 +9,10 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\User\HomeController as UserHome;
 use App\Http\Controllers\User\ActivityController as UserActivity;
+use App\Http\Controllers\User\ContactController as UserContact;
+use App\Http\Controllers\User\HelpController as UserHelp;
 use App\Http\Controllers\User\QuizController as UserQuiz;
 use App\Http\Controllers\User\AboutController as UserAbout;
 use App\Http\Controllers\User\BerandaController as UserBeranda;
@@ -27,7 +30,7 @@ Route::get('/help', function () {
 })->name('help');
 
 Route::middleware(['auth'])->group(callback: function () {
-    Route::middleware(['role:user ,admin'])->group(function () {
+    Route::middleware(['role:user,admin'])->group(function () {
         Route::prefix('/quiz')->group(function () {
             Route::get('/', [UserQuiz::class, 'index'])->name('quiz');
             Route::get('/start', [UserQuiz::class, 'quiz_start'])->name('quiz.start');
@@ -46,6 +49,8 @@ Route::middleware(['auth'])->group(callback: function () {
 Route::prefix('/about-us')->group(function () {
     Route::get('/history', [UserAbout::class, 'history'])->name('about-us.history');
     Route::get('/meaning', [UserAbout::class, 'meaning'])->name('about-us.meaning');
+    Route::get('/achievement', [UserAbout::class, 'achievement'])->name('about-us.achievement');
+    Route::get('/trainer-profile', [UserAbout::class, 'trainerProfile'])->name('about-us.trainer-profile');
 });
 Route::prefix('/activity')->group(function () {
     Route::get('/gallery', [UserActivity::class, 'gallery'])->name('activity.gallery');
@@ -104,6 +109,6 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::fallback(function () {
-    return response()->view('user.pages.404', [], 404);
+    return response()->view('user.404', [], 404);
 });
 

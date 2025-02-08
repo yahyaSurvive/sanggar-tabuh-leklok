@@ -28,4 +28,24 @@ class AboutController extends Controller
             Log::error($th->getMessage());
         }
     }
+    public function trainerProfile()
+    {
+        try {
+            return view(
+                'user.pages.about-us-trainer-profile'
+            );
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+        }
+    }
+    public function achievement()
+    {
+        try {
+            return view(
+                'user.pages.about-us-achievement'
+            );
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+        }
+    }
 }
