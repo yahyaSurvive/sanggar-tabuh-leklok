@@ -17,34 +17,33 @@
     <!-- Hero End -->
 
     <!-- About Satrt -->
-    <div class="container-fluid py-4">
+    <div class="container-fluid event py-4">
         <div class="container">
-            <div class="d-flex gap-4 flex-column-reverse flex-lg-row">
-                <div class="col-12 col-lg-7 wow bounceInUp" data-wow-delay="0.3s">
-                    <h1 class="display-5 mb-4">Arti Logo</h1>
-                    <div style="text-align: justify">
-                        <p class="mb-3"><span class="me-5"></span>Sanggar Leklok memiliki Logo TERATAI dengan 7 (Tujuh)
-                            Bilah daun. Dari
-                            sumber mengatakan tumbuhan teratai bisa hidup dimana saja, baik dalam air maupun
-                            tidak ada air. Jika dikaitkan dengam kehidupan sosial, sanggar kami memiliki harapan
-                            agar Sanggar Leklok ini tetap hidup dengan apapun yang terjadi. Oleh karena itu teratai
-                            pilihan kami sebagai Logo pada Sanggar Leklok, kenapa pada logo miliki 7(tujuh) bilah
-                            daun? Karena maksud kami yaitu daun instrumen Gangsa Pada Gong Semar Pegulingan,
-                            yang memiliki 7 Bilah daun. Sehingga jelas jika dikaitkan dengan maksud Logo kami
-                            “Teratai Dengan 7 Bilah Daun”.</p>
-                        <h1 class="display-5 mb-4">Arti Leklok</h1>
-                        <p><span class="me-5"></span>Lana, eling, kariinan, lestariang, oneng-onengan, katamiang
-                            artinya : selalu ingat leluhur dan melestarikan bakat seni yang diwariskan.</p>
+            <div class="row g-4">
+                <div class="col-lg-12 ">
+                    <div class="row g-4 mb-5">
+                        @forelse ($data as $key => $row)
+                            <div class="col-md-6 col-lg-3 wow bounceInUp" data-wow-delay="0.1s">
+                                <div class="event-img position-relative">
+                                    <img class="img-fluid rounded w-100" src="{{ asset('achievement/' . $row->link) }}"
+                                        alt="">
+                                    <div class="event-overlay d-flex flex-column p-4">
+                                        <h4 class="me-auto">Prestasi {{ $key + 1 }}</h4>
+                                        <a href="{{ asset('achievement/' . $row->link) }}" data-lightbox="event-1"
+                                            class="my-auto"><i class="fas fa-search-plus text-dark fa-2x"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        @empty
+                            <div class="col-12 wow bounceInUp" data-wow-delay="0.1s">
+                                <p class="text-center">Tidak ada gambar.</p>
+                            </div>
+                        @endforelse
                     </div>
-                </div>
-                <div class="col-12 col-lg-5 wow bounceInUp" data-wow-delay="0.1s">
-                    <img src="{{ asset('assets/user/img/logo-sanggar-satin.png') }}" class="img-fluid rounded"
-                        alt="logo Sanggar">
+                    <div class="text-center">{{ $data->links() }}</div>
                 </div>
             </div>
-
         </div>
-    </div>
     </div>
     <!-- About End -->
 @endsection

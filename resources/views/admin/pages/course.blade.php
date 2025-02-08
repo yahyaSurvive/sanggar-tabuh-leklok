@@ -19,7 +19,6 @@
             <div class="card-header d-flex justify-content-end">
                 <button id="add-quiz" class="btn btn-primary">+</button>
             </div>
-
             <table class="table datatable-pagination">
                 <thead>
                     <tr>

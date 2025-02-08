@@ -12,7 +12,7 @@
                             datang di
                         </span> Sanggar
                         Tabuh Leklok</h1>
-                    <a href=""
+                    <a href="{{ route('activity.course') }}"
                         class="btn btn-primary border-0 rounded-pill py-3 px-4 px-md-5 me-4 animated bounceInLeft">
                         Mulai Sekarang</a>
                 </div>

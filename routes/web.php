@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AchievementController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\QuizController;
@@ -87,6 +88,11 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('/', [GalleryController::class, 'index'])->name('admin.gallery');
                 Route::post('/store', [GalleryController::class, 'store'])->name('admin.gallery.store');
                 Route::get('/get-gallery', [GalleryController::class, 'getGallery'])->name('admin.gallery.get');
+            });
+            Route::prefix('/achievement')->group(function () {
+                Route::get('/', [AchievementController::class, 'index'])->name('admin.achievement');
+                Route::post('/store', [AchievementController::class, 'store'])->name('admin.achievement.store');
+                Route::get('/get-achievement', [AchievementController::class, 'getAchievement'])->name('admin.achievement.get');
             });
 
             Route::prefix('/course')->group(function () {
