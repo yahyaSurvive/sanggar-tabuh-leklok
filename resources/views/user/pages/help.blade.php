@@ -27,6 +27,10 @@
                                 sanggar.</li>
                             <li class="list-group-item"><strong>Sejarah:</strong> Jelajahi cerita perjalanan kami.</li>
                             <li class="list-group-item"><strong>Makna:</strong> Mengetahui arti logo kami.</li>
+                            <li class="list-group-item"><strong>Prestasi:</strong> Beberapa prestasi yang ditorehkan sanggar
+                            </li>
+                            <li class="list-group-item"><strong>Profil Pelatih:</strong> Profil singkat dari pelatih sanggar
+                            </li>
                             <li class="list-group-item"><strong>Quiz:</strong> Mulai kuis, lihat hasil, atau ulangi kuis.
                             </li>
                             <li class="list-group-item"><strong>Gallery:</strong> Nikmati koleksi foto dan video kami.</li>
