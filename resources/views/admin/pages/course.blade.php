@@ -6,12 +6,12 @@
     <script src="{{ asset('assets/admin/assets/js/vendor/tables/datatables/datatables.min.js') }}"></script>
     <script src="{{ asset('assets/admin/assets/demo/pages/datatables_basic.js') }}"></script>
 
-    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet"/>
-    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet"/>
+    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet" />
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet" />
     <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
     <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
 @endpush
-    <script src="{{ asset('assets/admin/assets/js/vendor/notifications/sweet_alert.min.js') }}"></script>
+<script src="{{ asset('assets/admin/assets/js/vendor/notifications/sweet_alert.min.js') }}"></script>
 
 @section('content_admin')
     <div class="content">
@@ -19,6 +19,7 @@
             <div class="card-header d-flex justify-content-end">
                 <button id="add-quiz" class="btn btn-primary">+</button>
             </div>
+
             <table class="table datatable-pagination">
                 <thead>
                     <tr>
@@ -39,18 +40,19 @@
                             <td>{{ $item->name }}</td>
                             <td>Rp. {{ number_format($item->price, 0, ',', '.') }}</td>
                             @php
-                                $day = $item->end_day ? $item->start_day. "-". $item->end_day : $item->start_day;
+                                $day = $item->end_day ? $item->start_day . '-' . $item->end_day : $item->start_day;
                             @endphp
                             <td>{{ $day }}</td>
-                            <td>{{ \Carbon\Carbon::parse($item->start_hour)->format('H.i') }} - {{ \Carbon\Carbon::parse($item->end_hour)->format('H.i') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($item->start_hour)->format('H.i') }} -
+                                {{ \Carbon\Carbon::parse($item->end_hour)->format('H.i') }}</td>
                             <td>
-                                <img src="{{ asset("/course/".$item->photo) }}" alt="thumbnail" width="150">
+                                <img src="{{ asset('/course/' . $item->photo) }}" alt="thumbnail" width="150">
                             </td>
                             <td>
                                 @if (!empty($item->video_link))
-                                <div class="text-center">
-                                    <iframe frameborder="0" allowfullscreen src="{{ $item->video_link }}"></iframe>
-                                </div>
+                                    <div class="text-center">
+                                        <iframe frameborder="0" allowfullscreen src="{{ $item->video_link }}"></iframe>
+                                    </div>
                                 @else
                                     <p class="text-center">None</p>
                                 @endif
@@ -67,11 +69,13 @@
                                                 <i class="ph-file-search me-2"></i>
                                                 Detail
                                             </a> --}}
-                                            <a href="#" data-id-course="{{ $item->id_course }}" class="edit-course dropdown-item">
+                                            <a href="#" data-id-course="{{ $item->id_course }}"
+                                                class="edit-course dropdown-item">
                                                 <i class="ph-pencil-line me-2"></i>
                                                 Edit
                                             </a>
-                                            <a href="#" data-id-course="{{ $item->id_course }}" class="delete-course dropdown-item">
+                                            <a href="#" data-id-course="{{ $item->id_course }}"
+                                                class="delete-course dropdown-item">
                                                 <i class="ph-trash me-2"></i>
                                                 Delete
                                             </a>
@@ -160,13 +164,14 @@
 
                     <div class="mb-3">
                         <label for="" class="form-label">Thumbnail</label>
-                        <input type="file" id="course-thumbnail" name="file"/>
+                        <input type="file" id="course-thumbnail" name="file" />
                     </div>
                     <div class="mb-3">
                         <label for="course-video" class="form-label">Video</label>
                         <input type="url" id="course-video" name="course_video" class="form-control" />
                         <div id="video-container" class="mt-3">
-                            <iframe id="course-video-preview" width="560" height="315" frameborder="0" allowfullscreen style="display: none"></iframe>
+                            <iframe id="course-video-preview" width="560" height="315" frameborder="0"
+                                allowfullscreen style="display: none"></iframe>
                         </div>
                     </div>
 
@@ -265,70 +270,71 @@
 @endsection
 
 @push('script_admin')
-<script>
-    $(document).ready(function () {
-        FilePond.registerPlugin(FilePondPluginImagePreview);
-        let thumbnail = FilePond.create(document.querySelector("#course-thumbnail"));
+    <script>
+        $(document).ready(function() {
+            FilePond.registerPlugin(FilePondPluginImagePreview);
+            let thumbnail = FilePond.create(document.querySelector("#course-thumbnail"));
 
-        function loadVideo(){
-            $("#course-video").on('input', function () {
-                var url = $(this).val().trim();
+            function loadVideo() {
+                $("#course-video").on('input', function() {
+                    var url = $(this).val().trim();
 
-                if (url) {
-                    $("#course-video-preview").attr("src", url);
-                    $("#course-video-preview").show();
-                } else {
-                    $("#course-video-preview").hide();
-                }
+                    if (url) {
+                        $("#course-video-preview").attr("src", url);
+                        $("#course-video-preview").show();
+                    } else {
+                        $("#course-video-preview").hide();
+                    }
+                });
+            }
+
+            loadVideo();
+
+
+            $("#add-quiz").click(function(e) {
+                $('#course-id').val("");
+                $('#course-id').val("");
+                $('#course-name').val("");
+                $('#day-start').val("");
+                $('#day-end').val("");
+                $('#start-hour').val("");
+                $('#end-hour').val("");
+                $('#course-additional').val("");
+                $('#course-video').val("");
+                thumbnail.removeFiles();
+
+                $('.modal-title').text('Add Course');
+                $('#modal-course').modal('show');
             });
-        }
 
-        loadVideo();
+            $(document).on('click', '.edit-course', function() {
+                let courseId = $(this).data('id-course');
+                console.log("edit : ", courseId);
 
+                thumbnail.removeFiles();
 
-        $("#add-quiz").click(function (e) {
-            $('#course-id').val("");
-            $('#course-id').val("");
-            $('#course-name').val("");
-            $('#day-start').val("");
-            $('#day-end').val("");
-            $('#start-hour').val("");
-            $('#end-hour').val("");
-            $('#course-additional').val("");
-            $('#course-video').val("");
-            thumbnail.removeFiles();
+                // Ambil data quiz dari server menggunakan AJAX
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('admin.course.detail', ['id' => '__id__']) }}".replace('__id__',
+                        courseId),
+                    success: function(response) {
 
-            $('.modal-title').text('Add Course');
-            $('#modal-course').modal('show');
-        });
+                        if (response.success) {
+                            $('#course-id').val(response.data.id_course);
+                            $('#course-name').val(response.data.name);
+                            $('#course-price').val(response.data.price);
+                            $('#day-start').val(response.data.start_day);
+                            $('#day-end').val(response.data.end_day);
+                            $('#start-hour').val(response.data.start_hour);
+                            $('#end-hour').val(response.data.end_hour);
+                            $('#course-additional').val(response.data.additional);
+                            $('#course-video').val(response.data.video_link);
+                            loadVideo();
 
-        $(document).on('click', '.edit-course', function () {
-            let courseId = $(this).data('id-course');
-            console.log("edit : ", courseId);
-
-            thumbnail.removeFiles();
-
-            // Ambil data quiz dari server menggunakan AJAX
-            $.ajax({
-                type: "GET",
-                url: "{{ route('admin.course.detail', ['id' => '__id__']) }}".replace('__id__', courseId),
-                success: function (response) {
-
-                    if (response.success) {
-                        $('#course-id').val(response.data.id_course);
-                        $('#course-name').val(response.data.name);
-                        $('#course-price').val(response.data.price);
-                        $('#day-start').val(response.data.start_day);
-                        $('#day-end').val(response.data.end_day);
-                        $('#start-hour').val(response.data.start_hour);
-                        $('#end-hour').val(response.data.end_hour);
-                        $('#course-additional').val(response.data.additional);
-                        $('#course-video').val(response.data.video_link);
-                        loadVideo();
-
-                        thumbnail = FilePond.create(document.querySelector("#course-thumbnail"), {
-                            files:  [
-                                {
+                            thumbnail = FilePond.create(document.querySelector(
+                                "#course-thumbnail"), {
+                                files: [{
                                     source: response.data.photo,
                                     options: {
                                         metadata: {
@@ -336,197 +342,196 @@
                                             id: response.data.id_course,
                                         }
                                     }
-                                }
-                            ]
-                        });
+                                }]
+                            });
 
-                        // Ubah judul modal untuk Edit
-                        $('.modal-title').text('Edit Course');
-                    } else {
-                        alert('Failed to load quiz details');
+                            // Ubah judul modal untuk Edit
+                            $('.modal-title').text('Edit Course');
+                        } else {
+                            alert('Failed to load quiz details');
+                        }
                     }
-                }
+                });
+
+                // Buka modal
+                $('#modal-course').modal('show');
             });
 
-            // Buka modal
-            $('#modal-course').modal('show');
-        });
+            $('#save-course').on('click', function() {
+                const formData = new FormData();
+                let courseId = $('#course-id').val();
+                let courseName = $("#course-name").val();
+                let price = $("#course-price").val();
+                let dayStart = $("#day-start").val();
+                let dayEnd = $("#day-end").val();
+                let startHour = $("#start-hour").val();
+                let endHour = $("#end-hour").val();
+                let additional = $("#course-additional").val();
+                let courseVideo = $("#course-video").val();
+                let thumbnailFile = thumbnail.getFiles();
 
-        $('#save-course').on('click', function () {
-            const formData = new FormData();
-            let courseId = $('#course-id').val();
-            let courseName = $("#course-name").val();
-            let price = $("#course-price").val();
-            let dayStart = $("#day-start").val();
-            let dayEnd = $("#day-end").val();
-            let startHour = $("#start-hour").val();
-            let endHour = $("#end-hour").val();
-            let additional = $("#course-additional").val();
-            let courseVideo = $("#course-video").val();
-            let thumbnailFile = thumbnail.getFiles();
-
-            // Validation required
-            if (!courseName || !price || !dayStart || !startHour || !endHour || !thumbnailFile.length) {
-                Swal.fire({
-                    title: 'Error',
-                    text: 'All fields are required!',
-                    icon: 'error',
-                    confirmButtonText: 'OK',
-                    customClass: {
-                        confirmButton: 'btn btn-danger'
-                    },
-                    buttonsStyling: false
-                });
-                return;
-            }
-
-            if(thumbnail.getFile().getMetadata("type")){
-                formData.append("file", "old");
-            }
-            else{
-                formData.append("file", thumbnail.getFile().file);
-            }
-
-            formData.append("name_course", $("#course-name").val());
-            formData.append("price_course", $("#course-price").val());
-            if(dayStart === dayEnd){
-                formData.append("day_start", $("#day-start").val());
-            }
-            else{
-                formData.append("day_start", $("#day-start").val());
-                formData.append("day_end", $("#day-end").val());
-            }
-            formData.append("start_hour", $("#start-hour").val());
-            formData.append("end_hour", $("#end-hour").val());
-            formData.append("additional", $("#course-additional").val());
-            formData.append("course_video", $("#course-video").val());
-
-            $.ajax({
-                url: courseId ? '{{ route('admin.course.update', ['id' => '__id__']) }}'.replace('__id__', courseId) : '{{ route('admin.course.store') }}',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                },
-                success: function (response) {
+                // Validation required
+                if (!courseName || !price || !dayStart || !startHour || !endHour || !thumbnailFile.length) {
                     Swal.fire({
-                        title: 'Success',
-                        text: response.message,
-                        icon: 'success',
-                        confirmButtonText: 'OK',
-                        customClass: {
-                            confirmButton: 'btn btn-success'
-                        },
-                        buttonsStyling: false
-                    }).then(() => {
-                        location.reload();
-                    });
-                },
-                error: function (xhr) {
-                    Swal.fire({
-                        title: 'Error!',
-                        text: xhr.responseText,
+                        title: 'Error',
+                        text: 'All fields are required!',
                         icon: 'error',
                         confirmButtonText: 'OK',
                         customClass: {
                             confirmButton: 'btn btn-danger'
                         },
                         buttonsStyling: false
-                    })
-                }
-            });
-        });
-
-        // Detail Modal
-        // $(document).on('click', '.detail-quiz', function() {
-        //     let idQuiz = $(this).data('id-quiz');
-
-        //     $.ajax({
-        //         type: "GET",
-        //         url: "{{ route('admin.quiz.detail', ['id' => '__id__']) }}".replace('__id__', idQuiz),
-        //         success: function (response) {
-        //             if(response.success){
-        //                 $("#detail-question").text(response.data.question);
-        //                 $("#detail-answer").text(`${response.data.answer}. ${JSON.parse(response.data.options)[response.data.answer]}`);
-
-        //                 let options = $("#detail-options");
-        //                 options.empty();
-
-        //                 let parsedOptions = JSON.parse(response.data.options);
-
-        //                 for (let key in parsedOptions) {
-        //                     options.append(`<li>${key}. ${parsedOptions[key]}</li>`);
-        //                 }
-        //             }
-        //             else{
-        //                 alert("gagal")
-        //             }
-        //         }
-        //     });
-        // });
-
-        // Delete
-        $(".delete-course").click(function (e) {
-            e.preventDefault();
-
-            // Ambil ID quiz dari atribut data-id
-            let courseId = $(this).data("id-course");
-
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'Cancel',
-                customClass: {
-                    confirmButton: 'btn btn-primary',
-                    cancelButton: 'btn btn-danger ms-2'
-                },
-                buttonsStyling: false
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        url: "{{ route('admin.course.destroy', ['id' => '__id__']) }}".replace('__id__', courseId),
-                        type: 'DELETE',
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Tambahkan CSRF token
-                        },
-                        success: function (response) {
-                            Swal.fire({
-                                title: 'Deleted!',
-                                text: response.message,
-                                icon: 'success',
-                                confirmButtonText: 'OK',
-                                customClass: {
-                                    confirmButton: 'btn btn-success'
-                                },
-                                buttonsStyling: false
-                            }).then(() => {
-                                location.reload();
-                            });
-                        },
-                        error: function (xhr) {
-                            Swal.fire({
-                                title: 'Error!',
-                                text: 'Failed to delete quiz.',
-                                icon: 'error',
-                                confirmButtonText: 'OK',
-                                customClass: {
-                                    confirmButton: 'btn btn-danger'
-                                },
-                                buttonsStyling: false
-                            });
-                        }
                     });
+                    return;
                 }
+
+                if (thumbnail.getFile().getMetadata("type")) {
+                    formData.append("file", "old");
+                } else {
+                    formData.append("file", thumbnail.getFile().file);
+                }
+
+                formData.append("name_course", $("#course-name").val());
+                formData.append("price_course", $("#course-price").val());
+                if (dayStart === dayEnd) {
+                    formData.append("day_start", $("#day-start").val());
+                } else {
+                    formData.append("day_start", $("#day-start").val());
+                    formData.append("day_end", $("#day-end").val());
+                }
+                formData.append("start_hour", $("#start-hour").val());
+                formData.append("end_hour", $("#end-hour").val());
+                formData.append("additional", $("#course-additional").val());
+                formData.append("course_video", $("#course-video").val());
+
+                $.ajax({
+                    url: courseId ? '{{ route('admin.course.update', ['id' => '__id__']) }}'
+                        .replace('__id__', courseId) : '{{ route('admin.course.store') }}',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    success: function(response) {
+                        Swal.fire({
+                            title: 'Success',
+                            text: response.message,
+                            icon: 'success',
+                            confirmButtonText: 'OK',
+                            customClass: {
+                                confirmButton: 'btn btn-success'
+                            },
+                            buttonsStyling: false
+                        }).then(() => {
+                            location.reload();
+                        });
+                    },
+                    error: function(xhr) {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: xhr.responseText,
+                            icon: 'error',
+                            confirmButtonText: 'OK',
+                            customClass: {
+                                confirmButton: 'btn btn-danger'
+                            },
+                            buttonsStyling: false
+                        })
+                    }
+                });
             });
+
+            // Detail Modal
+            // $(document).on('click', '.detail-quiz', function() {
+            //     let idQuiz = $(this).data('id-quiz');
+
+            //     $.ajax({
+            //         type: "GET",
+            //         url: "{{ route('admin.quiz.detail', ['id' => '__id__']) }}".replace('__id__', idQuiz),
+            //         success: function (response) {
+            //             if(response.success){
+            //                 $("#detail-question").text(response.data.question);
+            //                 $("#detail-answer").text(`${response.data.answer}. ${JSON.parse(response.data.options)[response.data.answer]}`);
+
+            //                 let options = $("#detail-options");
+            //                 options.empty();
+
+            //                 let parsedOptions = JSON.parse(response.data.options);
+
+            //                 for (let key in parsedOptions) {
+            //                     options.append(`<li>${key}. ${parsedOptions[key]}</li>`);
+            //                 }
+            //             }
+            //             else{
+            //                 alert("gagal")
+            //             }
+            //         }
+            //     });
+            // });
+
+            // Delete
+            $(".delete-course").click(function(e) {
+                e.preventDefault();
+
+                // Ambil ID quiz dari atribut data-id
+                let courseId = $(this).data("id-course");
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, delete it!',
+                    cancelButtonText: 'Cancel',
+                    customClass: {
+                        confirmButton: 'btn btn-primary',
+                        cancelButton: 'btn btn-danger ms-2'
+                    },
+                    buttonsStyling: false
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "{{ route('admin.course.destroy', ['id' => '__id__']) }}"
+                                .replace('__id__', courseId),
+                            type: 'DELETE',
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
+                                    'content') // Tambahkan CSRF token
+                            },
+                            success: function(response) {
+                                Swal.fire({
+                                    title: 'Deleted!',
+                                    text: response.message,
+                                    icon: 'success',
+                                    confirmButtonText: 'OK',
+                                    customClass: {
+                                        confirmButton: 'btn btn-success'
+                                    },
+                                    buttonsStyling: false
+                                }).then(() => {
+                                    location.reload();
+                                });
+                            },
+                            error: function(xhr) {
+                                Swal.fire({
+                                    title: 'Error!',
+                                    text: 'Failed to delete quiz.',
+                                    icon: 'error',
+                                    confirmButtonText: 'OK',
+                                    customClass: {
+                                        confirmButton: 'btn btn-danger'
+                                    },
+                                    buttonsStyling: false
+                                });
+                            }
+                        });
+                    }
+                });
+            });
+
+
         });
-
-
-    });
-
-</script>
+    </script>
 @endpush

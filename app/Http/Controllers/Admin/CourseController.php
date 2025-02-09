@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $dataCourse = Course::orderBy('id_course', 'DESC')->get();
         return view('admin.pages.course', compact('dataCourse'));
     }
@@ -96,13 +97,14 @@ class CourseController extends Controller
     //     }
     // }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
         try {
 
             $uniqueFilename = "";
             $course = Course::findOrFail($id);
 
-            if($request->file != "old"){
+            if ($request->file != "old") {
                 // delete photo from folder
                 $filePath = public_path('course/' . $course->photo);
                 if (file_exists($filePath)) {
@@ -116,8 +118,7 @@ class CourseController extends Controller
 
                 // move to folder
                 $request->file->move(public_path('course'), $uniqueFilename);
-            }
-            else{
+            } else {
                 $uniqueFilename = $course->photo;
             }
 
@@ -151,7 +152,8 @@ class CourseController extends Controller
         }
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         $course = Course::find($id);
 
         $filePath = public_path('course/' . $course->photo);
